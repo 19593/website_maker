@@ -4,13 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href={{url_for('static',filename='styles/styles.css')}}>
     <title>Contents</title>
 </head>
 <body>
     <table style="width:100%">
         <tr>
-            <th>Week</th>
-            <th>Circumference</th>
+            <th>Week:</th>
+            <th>Bicepse:</th>
         </tr>
         {% for item in results %}
         <tr>
@@ -19,5 +20,10 @@
         </tr>
         {% endfor %}
     </table>
+    <form action="/add" method="post">
+    <h2>Enter new circumference</h2>
+    <input type="text" name='item_bicepse'>
+    <input type="submit" value="add">
+    </form>
 </body>
 </html>

@@ -1,4 +1,4 @@
-from flask import Flask,g,render_template
+from flask import Flask,g,render_template,request,redirect
 import sqlite3
 
 app = Flask(__name__)
@@ -21,16 +21,31 @@ def close_connection(exception):
 
 @app.route('/')
 def home():
-    return render_template('home.html')
-
-
-@app.route('/contents')
-def index():
     cursor = get_db().cursor()
     sql = 'SELECT * FROM contents'
     cursor.execute(sql)
     results = cursor.fetchall()
     return render_template('contents.html', results=results)
+
+@app.route('/add', methods=['GET','POST'])
+def add():
+    if request.method == 'POST':
+        cursor = get_db().cursor()
+        new_bicepse = request.form['item_bicepse']
+        sql = 'INSERT INTO contents(Bicepse) VALUES(?)'
+        cursor.execute(sql,(new_bicepse))
+        get_db().commit()
+    return redirect('/')
+
+
+
+
+
+
+
+
+
+   
 
 if __name__== '__main__':
     app.run(debug=True)
