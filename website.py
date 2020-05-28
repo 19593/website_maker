@@ -1,5 +1,10 @@
 from flask import Flask,g,render_template,request,redirect
+import datetime
 import sqlite3
+
+now = datetime.datetime.now()
+dateStr = now.strftime("%d-%m-%Y")
+
 
 app = Flask(__name__)
 
@@ -36,6 +41,12 @@ def add():
         cursor.execute(sql,(new_biceps,))
         get_db().commit()
     return redirect('/')
+
+
+@app.route('/delete', methods=['GET','POST'])
+def delete():
+    if request.method == 'POST':
+        cursor = get_db().cursor()
 
 
 
