@@ -2,8 +2,6 @@ from flask import Flask,g,render_template,request,redirect
 import datetime
 import sqlite3
 
-now = datetime.datetime.now()
-dateStr = now.strftime("%d-%m-%Y")
 
 
 app = Flask(__name__)
@@ -37,8 +35,10 @@ def add():
     if request.method == 'POST':
         cursor = get_db().cursor()
         new_biceps = request.form['item_biceps']
-        sql = 'INSERT INTO contents(Biceps) VALUES(?)'
-        cursor.execute(sql,(new_biceps,))
+        now = datetime.datetime.now()
+        dateStr = now.strftime("%d/%m/%Y")
+        sql = 'INSERT INTO contents(Date,Biceps) VALUES(?,?)'
+        cursor.execute(sql,(dateStr,new_biceps,))
         get_db().commit()
     return redirect('/')
 
