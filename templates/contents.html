@@ -7,23 +7,35 @@
     <link rel="stylesheet" href={{url_for('static',filename='styles/styles.css')}}>
     <title>Contents</title>
 </head>
+
+
+<script>
+var currentDate = new Date();
+var day = currentDate.getDay();
+var month = currentDate.getMonth();
+var year = currentDate.getYear();
+var fullDate = day + "/" + month + "/" + year;
+</script>
+
+
 <body>
     <table style="width:100%">
         <tr>
-            <th>Week:</th>
-            <th>Bicepse:</th>
+            <th>Date:</th>
+            <th>Biceps:</th>
         </tr>
         {% for item in results %}
         <tr>
-            <td>{{item[0]}}</td>
             <td>{{item[1]}}</td>
+            <td>{{item[2]}}</td>
         </tr>
         {% endfor %}
     </table>
     <form action="/add" method="post">
     <h2>Enter new circumference</h2>
-    <input type="text" name='item_bicepse'>
+    <input type="text" name='item_biceps'>
     <input type="submit" value="add">
     </form>
 </body>
+
 </html>

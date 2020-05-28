@@ -31,9 +31,9 @@ def home():
 def add():
     if request.method == 'POST':
         cursor = get_db().cursor()
-        new_bicepse = request.form['item_bicepse']
-        sql = 'INSERT INTO contents(Bicepse) VALUES(?)'
-        cursor.execute(sql,(new_bicepse))
+        new_biceps = request.form['item_biceps']
+        sql = 'INSERT INTO contents(Biceps) VALUES(?)'
+        cursor.execute(sql,(new_biceps,))
         get_db().commit()
     return redirect('/')
 
