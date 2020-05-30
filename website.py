@@ -21,9 +21,20 @@ def close_connection(exception):
     if db is not None:
         db.close()
 
-
 @app.route('/')
 def home():
+    return render_template('homepage.html')
+
+@app.route('/go_to_table', methods=['GET','POST'])
+def go_to_table():
+    return redirect('/table')
+
+@app.route('/go_to_homepage', methods=['GET','POST'])
+def go_to_homepage():
+    return redirect('/')
+
+@app.route('/table')
+def table():
     cursor = get_db().cursor()
     sql = 'SELECT * FROM contents'
     cursor.execute(sql)
@@ -40,7 +51,7 @@ def add():
         sql = 'INSERT INTO contents(Date,Biceps) VALUES(?,?)'
         cursor.execute(sql,(dateStr,new_biceps,))
         get_db().commit()
-    return redirect('/')
+    return redirect('/table')
 
 
 @app.route('/delete', methods=['GET','POST'])
