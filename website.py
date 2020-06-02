@@ -38,14 +38,15 @@ def go_to_homepage():
 def home():
     return render_template('homepage.html')
 
+#tables
 #table
 @app.route('/table')
 def table():
     cursor = get_db().cursor()
-    sql = 'SELECT * FROM contents'
+    sql = 'SELECT * FROM Biceps'
     cursor.execute(sql)
     results = cursor.fetchall()
-    return render_template('contents.html', results=results)
+    return render_template('Biceps_table.html', results=results)
 
 #add to table
 @app.route('/add', methods=['GET','POST'])
@@ -55,7 +56,7 @@ def add():
         new_biceps = request.form['item_biceps']
         now = datetime.datetime.now()
         dateStr = now.strftime("%d/%m/%Y")
-        sql = 'INSERT INTO contents(Date,Biceps) VALUES(?,?)'
+        sql = 'INSERT INTO Biceps(Date,Biceps) VALUES(?,?)'
         cursor.execute(sql,(dateStr,new_biceps,))
         get_db().commit()
     return redirect('/table')
@@ -67,7 +68,7 @@ def delete():
         #get the item and delete from database
         cursor = get_db().cursor()
         id = int(request.form["item_name"])
-        sql = "DELETE FROM contents WHERE id=?"
+        sql = "DELETE FROM Biceps WHERE id=?"
         cursor.execute(sql,(id,))
         get_db().commit()
     return redirect("/table")
