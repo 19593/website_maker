@@ -14,11 +14,18 @@
         <tr>
             <th>Date:</th>
             <th>Biceps:</th>
+            <th>Delete?</th>
         </tr>
         {% for item in results %}
         <tr>
             <td>{{item[1]}}</td>
             <td>{{item[2]}}</td>
+            <td>
+            <form action="/delete" method="post">
+            <input type="hidden" name="item_name" value="{{item[0]}}">
+            <input type="submit" value="delete">
+            </form>
+            </td>
         </tr>
         {% endfor %}
     </table>

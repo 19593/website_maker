@@ -21,18 +21,24 @@ def close_connection(exception):
     if db is not None:
         db.close()
 
-@app.route('/')
-def home():
-    return render_template('homepage.html')
-
+#redirections
+#to table
 @app.route('/go_to_table', methods=['GET','POST'])
 def go_to_table():
     return redirect('/table')
 
+#to homepage
 @app.route('/go_to_homepage', methods=['GET','POST'])
 def go_to_homepage():
     return redirect('/')
+#redirections
 
+#homepage
+@app.route('/')
+def home():
+    return render_template('homepage.html')
+
+#table
 @app.route('/table')
 def table():
     cursor = get_db().cursor()
@@ -41,6 +47,7 @@ def table():
     results = cursor.fetchall()
     return render_template('contents.html', results=results)
 
+#add to table
 @app.route('/add', methods=['GET','POST'])
 def add():
     if request.method == 'POST':
@@ -53,11 +60,18 @@ def add():
         get_db().commit()
     return redirect('/table')
 
-
+#delete from table
 @app.route('/delete', methods=['GET','POST'])
 def delete():
     if request.method == 'POST':
+        #get the item and delete from database
         cursor = get_db().cursor()
+        id = int(request.form["item_name"])
+        sql = "DELETE FROM contents WHERE id=?"
+        cursor.execute(sql,(id,))
+        get_db().commit()
+    return redirect("/table")
+
 
 
 
