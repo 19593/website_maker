@@ -21,36 +21,101 @@ def close_connection(exception):
     if db is not None:
         db.close()
 
+
+
+
+
 #redirections
-#to table
-@app.route('/go_to_table', methods=['GET','POST'])
-def go_to_table():
-    return redirect('/table')
+
+#to table biceps
+@app.route('/go_to_table_biceps', methods=['GET','POST'])
+def go_to_table_biceps():
+    return redirect('/table_biceps')
+
+#to table thigh
+@app.route('/go_to_table_thigh', methods=['GET','POST'])
+def go_to_table_thigh():
+    return redirect('/table_thigh')
 
 #to homepage
 @app.route('/go_to_homepage', methods=['GET','POST'])
 def go_to_homepage():
     return redirect('/')
+
 #redirections
 
+
+
+
+
+
 #homepage
-@app.route('/')
+@app.route('/', methods=['GET','POST'])
 def home():
     return render_template('homepage.html')
 
+
+#select right table
+@app.route("/tables", methods=['GET','POST'])
+def tables():
+    return render_template("/tables.html")
+
+
+
+
+
 #tables
-#table
-@app.route('/table')
-def table():
+
+
+
+#table thigh
+@app.route('/table_thigh')
+def table_thigh():
+    cursor = get_db().cursor()
+    sql = 'SELECT * FROM Thigh'
+    cursor.execute(sql)
+    results = cursor.fetchall()
+    return render_template('Thigh_table.html', results=results)
+
+#add to table(thigh)
+@app.route('/add_thigh', methods=['GET','POST'])
+def add_thigh():
+    if request.method == 'POST':
+        cursor = get_db().cursor()
+        new_thigh = request.form['item_thigh']
+        now = datetime.datetime.now()
+        dateStr = now.strftime("%d/%m/%Y")
+        sql = 'INSERT INTO Thigh(Date,Thigh) VALUES(?,?)'
+        cursor.execute(sql,(dateStr,new_thigh,))
+        get_db().commit()
+    return redirect('/table_thigh')
+
+#delete from table thigh
+@app.route('/delete_thigh', methods=['GET','POST'])
+def delete_thigh():
+    if request.method == 'POST':
+        #get the item and delete from database
+        cursor = get_db().cursor()
+        id = int(request.form["item_name"])
+        sql = "DELETE FROM Thigh WHERE id=?"
+        cursor.execute(sql,(id,))
+        get_db().commit()
+    return redirect("/table_thigh")
+
+
+
+#table biceps
+@app.route('/table_biceps')
+def table_biceps():
     cursor = get_db().cursor()
     sql = 'SELECT * FROM Biceps'
     cursor.execute(sql)
     results = cursor.fetchall()
     return render_template('Biceps_table.html', results=results)
 
-#add to table
-@app.route('/add', methods=['GET','POST'])
-def add():
+#add to table biceps
+@app.route('/add_biceps', methods=['GET','POST'])
+def add_biceps():
     if request.method == 'POST':
         cursor = get_db().cursor()
         new_biceps = request.form['item_biceps']
@@ -59,11 +124,11 @@ def add():
         sql = 'INSERT INTO Biceps(Date,Biceps) VALUES(?,?)'
         cursor.execute(sql,(dateStr,new_biceps,))
         get_db().commit()
-    return redirect('/table')
+    return redirect('/table_biceps')
 
-#delete from table
-@app.route('/delete', methods=['GET','POST'])
-def delete():
+#delete from table biceps
+@app.route('/delete_biceps', methods=['GET','POST'])
+def delete_biceps():
     if request.method == 'POST':
         #get the item and delete from database
         cursor = get_db().cursor()
@@ -71,7 +136,7 @@ def delete():
         sql = "DELETE FROM Biceps WHERE id=?"
         cursor.execute(sql,(id,))
         get_db().commit()
-    return redirect("/table")
+    return redirect("/table_biceps")
 
 
 
