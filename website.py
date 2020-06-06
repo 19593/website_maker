@@ -3,17 +3,39 @@ import datetime
 import sqlite3
 
 
-
 app = Flask(__name__)
 
 
 DATABASE = 'Improve.db'
+
+
+#functions
+
+
+#get_db
 
 def get_db():
     db = getattr(g, '_database', None)
     if db is None:
         db = g._database = sqlite3.connect(DATABASE)
     return db
+
+
+#graph_data
+
+@app.route('/graph_data')
+def graph_data():
+    cursor = get_db().cursor()
+    sql = 'SELECT Date, Biceps FROM Biceps'
+    cursor.execute(sql)
+    results = cursor.fetchall()
+    return render_template("/chart.html", data = [['Date' , 'Circumference']] + results)
+
+
+
+
+
+
 
 @app.teardown_appcontext
 def close_connection(exception):
@@ -41,6 +63,11 @@ def go_to_table_thigh():
 @app.route('/go_to_homepage', methods=['GET','POST'])
 def go_to_homepage():
     return redirect('/')
+
+#to graph_data
+@app.route('/go_to_graph_data', methods=['GET','POST'])
+def go_to_graph_data():
+    return redirect('/graph_data')
 
 #redirections
 
@@ -84,7 +111,7 @@ def add_thigh():
         cursor = get_db().cursor()
         new_thigh = request.form['item_thigh']
         now = datetime.datetime.now()
-        dateStr = now.strftime("%d/%m/%Y")
+        dateStr = now.strftime("%Y-%m-%d")
         sql = 'INSERT INTO Thigh(Date,Thigh) VALUES(?,?)'
         cursor.execute(sql,(dateStr,new_thigh,))
         get_db().commit()
