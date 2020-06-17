@@ -21,22 +21,10 @@
             <td>{{item[1]}}</td>
             <td>{{item[2]}}</td>
             <td>
-            <form action="/delete_biceps" method="post">
-                <input type="hidden" name="item_name" value="{{item[0]}}">
-                <button onclick="myFunction()">delete</button>
-                <script>
-                        function myFunction() {
-                          var txt;
-                          var r = confirm("Do you want to delete?");
-                          if (r == true) {
-                            txt = "Deleted";
-                          } else {
-                            txt = "Not deleted";
-                          }
-                          document.getElementById("demo").innerHTML = txt;
-                        }
-                </script>
-            </form>
+                <form action="/delete_biceps" method="POST" onsubmit="return confirm('do you want to delete?')">
+                    <input type="hidden" name="item_name" value="{{item[0]}}">
+                    <button type="submit">delete</button>
+                </form>
             </td>
         </tr>
         {% endfor %}
