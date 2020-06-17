@@ -3,10 +3,10 @@
   <head>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
-      google.charts.load('current', {'packages':['corechart']});
-      google.charts.setOnLoadCallback(drawLogScales);
+      google.charts.load('current', {packages: ['corechart', 'line']});
+      google.charts.setOnLoadCallback(drawBasic);
 
-      function drawLogScales() {
+      function drawBasic() {
         //adding values
         var data = google.visualization.arrayToDataTable(
           {{ data|tojson }} 
@@ -17,11 +17,11 @@
             title: 'Your development',
             hAxis: {
               title: 'Week',
-              logScale: true
+              logScale: false
             },
             vAxis: {
               title: 'Measurement (cm)',
-              logScale: false
+              logScale: true
             },
             legend: { position: 'bottom' }
           };

@@ -26,7 +26,7 @@ def get_db():
 @app.route('/graph_data')
 def graph_data():
     cursor = get_db().cursor()
-    sql = 'SELECT Date, Biceps FROM Biceps'
+    sql = 'SELECT Week, Biceps FROM Biceps'
     cursor.execute(sql)
     results = cursor.fetchall()
     return render_template("/chart.html", data = [['Date', 'Circumference']] + results )
@@ -146,10 +146,9 @@ def add_biceps():
     if request.method == 'POST':
         cursor = get_db().cursor()
         new_biceps = request.form['item_biceps']
-        sql1 = 'SELECT LAST (Week) FROM Biceps'
-        week = sql1 + '1'
+        new_week = request.form['item_week']
         sql = 'INSERT INTO Biceps(Week,Biceps) VALUES(?,?)'
-        cursor.execute(sql,(week,new_biceps,))
+        cursor.execute(sql,(new_week,new_biceps))
         get_db().commit()
     return redirect('/table_biceps')
 
