@@ -110,10 +110,9 @@ def add_thigh():
     if request.method == 'POST':
         cursor = get_db().cursor()
         new_thigh = request.form['item_thigh']
-        now = datetime.datetime.now()
-        dateStr = now.strftime("%Y-%m-%d")
-        sql = 'INSERT INTO Thigh(Date,Thigh) VALUES(?,?)'
-        cursor.execute(sql,(dateStr,new_thigh,))
+        new_week = request.form['item_week']
+        sql = 'INSERT INTO Thigh(Week,Thigh) VALUES(?,?)'
+        cursor.execute(sql,(new_week,new_thigh))
         get_db().commit()
     return redirect('/table_thigh')
 

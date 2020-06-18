@@ -21,19 +21,28 @@
             <td>{{item[1]}}</td>
             <td>{{item[2]}}</td>
             <td>
-            <form action="/delete_thigh" method="post">
-            <input type="hidden" name="item_name" value="{{item[0]}}">
-            <input type="submit" value="delete">
-            </form>
+                <form action="/delete_thigh" method="POST" onsubmit="return confirm('do you want to delete?')">
+                    <input type="hidden" name="item_name" value="{{item[0]}}">
+                    <button type="submit">delete</button>
+                </form>
             </td>
         </tr>
         {% endfor %}
     </table>
+
+
     <form action="/add_thigh" method="post">
     <h2>Enter new circumference</h2>
-    <input type="text" name='item_thigh'>
-    <input type="submit" value="add">
+    <p>If you've missed last week, put in an estimated value from between the week before and today.</p>
+    <p> Week: 
+        <input type="text" name='item_week'> 
+        Measurement: 
+        <input type="text" name='item_thigh'>
+        <input type="submit" value="add">
+    </p>
     </form>
+
+
     <form action="go_to_homepage" method="post">
     <input type="submit" value="Back to Homepage">
     </form>
