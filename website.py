@@ -23,13 +23,13 @@ def get_db():
 
 #graph_data
 
-@app.route('/graph_data')
-def graph_data():
+@app.route('/graph_biceps')
+def graph_biceps():
     cursor = get_db().cursor()
     sql = 'SELECT Week, Biceps FROM Biceps'
     cursor.execute(sql)
     results = cursor.fetchall()
-    return render_template("/chart.html", data = [['Date', 'Circumference']] + results )
+    return render_template("/biceps_chart.html", data = [['Date', 'Circumference']] + results )
 
 
 
@@ -65,9 +65,9 @@ def go_to_homepage():
     return redirect('/')
 
 #to graph_data
-@app.route('/go_to_graph_data', methods=['GET','POST'])
-def go_to_graph_data():
-    return redirect('/graph_data')
+@app.route('/go_to_graph_biceps', methods=['GET','POST'])
+def go_to_graph_biceps():
+    return redirect('/graph_biceps')
 
 #redirections
 

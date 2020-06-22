@@ -7,11 +7,41 @@
     <title>Home</title>
 </head>
 
+<div id='sidebar'>
+        <h>Developnent:</h>
+        <url>
+            <li>Summery</li>
+            <li>Category</li>
+        </url>
+        <h>Measurement:</h>
+        <url>
+            <li>Full Measurement</li>
+            <li>Specific Measurement</li>
+            <li>Edit Table</li>
+        </url>
+    <style>
+        *{
+            margin:0px;
+            padding:0px;
+            font-family:sans-serif;
+        }
+
+        #sidebar {
+            position:fixed;
+            width:200px;
+            height:100%;
+            background:deepskyblue;
+        }
+    </style>
+</div>
+
+
+
 <body>
     <form action="/tables" method="post">
     <input type="submit" value="Make new measurement">
     </form>
-    <form action="/go_to_graph_data" method="post">
+    <form action="/go_to_graph_biceps" method="post">
     <input type="submit" value="view development">
     </form>
 </body>

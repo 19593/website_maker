@@ -1,0 +1,43 @@
+
+<html>
+    <head>
+      <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+      <script type="text/javascript">
+        google.charts.load('current', {packages: ['corechart', 'line']});
+        google.charts.setOnLoadCallback(drawBasic);
+  
+        function drawBasic() {
+          //adding values
+          var data = google.visualization.arrayToDataTable(
+            {{ data|tojson }} 
+          );
+          
+          //defining table
+          var options = {
+              title: 'Your development',
+              hAxis: {
+                title: 'Week',
+                logScale: false
+              },
+              vAxis: {
+                title: 'Measurement (cm)',
+                logScale: false
+              },
+              legend: { position: 'bottom' }
+            };
+  
+          var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+  
+          chart.draw(data, options);
+          }
+      </script>
+    </head>
+    <body>
+      <div id="curve_chart" style="width: 1300px; height: 700px"></div>
+      <form action="go_to_homepage" method="post">
+        <input type="submit" value="Back to Homepage">
+      </form>
+      {{ data|tojson }}
+  
+    </body>
+  </html>
