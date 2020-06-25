@@ -17,6 +17,9 @@ table {
 *{
     margin:0px;
     padding:0px;
+    box-sizing: border-box;
+    list-style: none;
+    text-decoration: none;
     font-family:'Rockwell';
 }
 
@@ -38,8 +41,18 @@ table {
     list-style:none;
     padding:15px 15px;
     border-bottom:1px solid rgba(100,100,100,0.3);
-
 }
+#sidebar ul li a {
+  color: #fdfcfc;
+  display: block;
+}
+
+#sidebar ul li:hover{
+  background: rgb(101, 230, 202);
+}
+
+
+
 .wrapper {
   width: 400px;
   height: 400px;

@@ -31,6 +31,13 @@ def graph_biceps():
     results = cursor.fetchall()
     return render_template("/biceps_chart.html", data = [['Date', 'Circumference']] + results )
 
+@app.route('/graph_thigh')
+def graph_thigh():
+    cursor = get_db().cursor()
+    sql = 'SELECT Week, Thigh FROM Thigh'
+    cursor.execute(sql)
+    results = cursor.fetchall()
+    return render_template("/thigh_chart.html", data = [['Date', 'Circumference']] + results )
 
 
 
@@ -49,25 +56,38 @@ def close_connection(exception):
 
 #redirections
 
-#to table biceps
+#to tables
+@app.route('/go_to_tables', methods=['GET','POST'])
+def go_to_tables():
+    return redirect('/tables')
+#to table thigh
 @app.route('/go_to_table_biceps', methods=['GET','POST'])
 def go_to_table_biceps():
     return redirect('/table_biceps')
-
 #to table thigh
 @app.route('/go_to_table_thigh', methods=['GET','POST'])
 def go_to_table_thigh():
     return redirect('/table_thigh')
+
 
 #to homepage
 @app.route('/go_to_homepage', methods=['GET','POST'])
 def go_to_homepage():
     return redirect('/')
 
-#to graph_data
+#to graph_biceps
+@app.route('/go_to_graphs', methods=['GET','POST'])
+def go_to_graphs():
+    return redirect('/graphs')
+
 @app.route('/go_to_graph_biceps', methods=['GET','POST'])
 def go_to_graph_biceps():
     return redirect('/graph_biceps')
+
+#to graph_data
+@app.route('/go_to_graph_thigh', methods=['GET','POST'])
+def go_to_graph_thigh():
+    return redirect('/graph_thigh')
 
 #redirections
 
@@ -162,7 +182,6 @@ def delete_biceps():
         cursor.execute(sql,(id,))
         get_db().commit()
     return redirect("/table_biceps")
-
 
 
 
