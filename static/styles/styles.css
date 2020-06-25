@@ -13,3 +13,38 @@ table {
   tr:nth-child(even) {
     background-color: #dddddd;
   }
+  
+*{
+    margin:0px;
+    padding:0px;
+    font-family:'Rockwell';
+}
+
+#sidebar {
+    position:fixed;
+    width:220px;
+    height:100%;
+    background:rgb(35, 209, 171);
+}
+#sidebar ul li {
+    color:rgb(239, 248, 230);
+    list-style:none;
+    padding:15px 30px;
+    border-bottom:1px solid rgba(100,100,100,0.3);
+
+}
+#sidebar ul ol {
+    color:rgb(50, 51, 49);
+    list-style:none;
+    padding:15px 15px;
+    border-bottom:1px solid rgba(100,100,100,0.3);
+
+}
+.wrapper {
+  width: 400px;
+  height: 400px;
+}
+
+.imagestyle1 { 
+  position: relative; top: -370px; left: 220px; 
+}

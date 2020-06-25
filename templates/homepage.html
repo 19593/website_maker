@@ -4,45 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href={{url_for('static',filename='styles/styles.css')}}>
     <title>Home</title>
 </head>
 
-<div id='sidebar'>
-        <h>Developnent:</h>
-        <url>
-            <li>Summery</li>
-            <li>Category</li>
-        </url>
-        <h>Measurement:</h>
-        <url>
-            <li>Full Measurement</li>
-            <li>Specific Measurement</li>
-            <li>Edit Table</li>
-        </url>
-    <style>
-        *{
-            margin:0px;
-            padding:0px;
-            font-family:sans-serif;
-        }
-
-        #sidebar {
-            position:fixed;
-            width:200px;
-            height:100%;
-            background:deepskyblue;
-        }
-    </style>
-</div>
-
-
-
 <body>
-    <form action="/tables" method="post">
-    <input type="submit" value="Make new measurement">
-    </form>
-    <form action="/go_to_graph_biceps" method="post">
-    <input type="submit" value="view development">
-    </form>
+    <div id='sidebar'>
+        <ul>
+            <ol>Development:</ol>
+        </ul>
+            <ul>
+                <li>Summery</li>
+                <li>Category</li>
+            </ul>
+        <ul>
+            <ol>Measurement:</ol>
+        </ul>
+            <ul>
+                <li>Full Measurement</li>
+                <li>Specific Measurement</li>
+                <li>Edit Table</li>
+            </ul>
+        <div class='wrapper, imagestyle1'>
+            <img src={{url_for('static',filename='img/gym-test.jpg')}} style="width: 300px; min-width: 1220px;" />
+        </div>
+    </div>
 </body>
+
+
+
 </html>
