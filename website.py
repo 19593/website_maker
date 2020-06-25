@@ -75,10 +75,11 @@ def go_to_table_thigh():
 def go_to_homepage():
     return redirect('/')
 
+
 #to graph_biceps
-@app.route('/go_to_graphs', methods=['GET','POST'])
-def go_to_graphs():
-    return redirect('/graphs')
+@app.route('/go_to_chart', methods=['GET','POST'])
+def go_to_charts():
+    return redirect('/chart')
 
 @app.route('/go_to_graph_biceps', methods=['GET','POST'])
 def go_to_graph_biceps():
@@ -107,6 +108,10 @@ def home():
 def tables():
     return render_template("/tables.html")
 
+#select right chart
+@app.route("/chart", methods=['GET','POST'])
+def chart():
+    return render_template("/chart.html")
 
 
 
