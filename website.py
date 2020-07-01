@@ -54,49 +54,31 @@ def close_connection(exception):
 
 
 
+
+
 #redirections
 
 #to full_measurement
-@app.route('/go_to_full_measurement', methods=['GET','POST'])
-def go_to_full_measurement():
-    return redirect('/new_measurement')
-
 @app.route('/full_measurement', methods=['GET','POST'])
 def full_measurement():
     return render_template('/full_measurement.html')
-
-
-
-#to tables
-@app.route('/go_to_tables', methods=['GET','POST'])
-def go_to_tables():
-    return redirect('/tables')
-#to table thigh
-@app.route('/go_to_table_biceps', methods=['GET','POST'])
-def go_to_table_biceps():
-    return redirect('/table_biceps')
-#to table thigh
-@app.route('/go_to_table_thigh', methods=['GET','POST'])
-def go_to_table_thigh():
-    return redirect('/table_thigh')
-
 
 #to homepage
 @app.route('/go_to_homepage', methods=['GET','POST'])
 def go_to_homepage():
     return redirect('/')
 
-
-#to graph_biceps
+#to chart list
 @app.route('/go_to_chart', methods=['GET','POST'])
 def go_to_charts():
     return redirect('/chart')
 
+#to graph_biceps
 @app.route('/go_to_graph_biceps', methods=['GET','POST'])
 def go_to_graph_biceps():
     return redirect('/graph_biceps')
 
-#to graph_data
+#to graph_thigh
 @app.route('/go_to_graph_thigh', methods=['GET','POST'])
 def go_to_graph_thigh():
     return redirect('/graph_thigh')
@@ -108,27 +90,28 @@ def go_to_graph_thigh():
 
 
 
+
+
 #homepage
 @app.route('/', methods=['GET','POST'])
 def home():
     return render_template('homepage.html')
 
-
 #select right table
 @app.route("/tables", methods=['GET','POST'])
 def tables():
-    return render_template("/tables.html")
+    return render_template("tables.html")
 
 #select right chart
 @app.route("/chart", methods=['GET','POST'])
 def chart():
-    return render_template("/chart.html")
+    return render_template("chart.html")
 
 
 
 
-#tables
 
+#TABLES
 
 
 #table thigh
@@ -151,8 +134,6 @@ def add_thigh():
         cursor.execute(sql,(new_week,new_thigh))
         get_db().commit()
     return redirect('/table_thigh')
-
-
 
 #delete from table thigh
 @app.route('/delete_thigh', methods=['GET','POST'])
