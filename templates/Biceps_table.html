@@ -18,8 +18,8 @@
         </tr>
         {% for item in results %}
         <tr>
+            <td>{{item[0]}}</td>
             <td>{{item[1]}}</td>
-            <td>{{item[2]}}</td>
             <td>
                 <form action="/delete_biceps" method="POST" onsubmit="return confirm('do you want to delete?')">
                     <input type="hidden" name="item_name" value="{{item[0]}}">
@@ -28,10 +28,10 @@
             </td>
         </tr>
         {% endfor %}
+    
     </table>
     <form action="/add_biceps" method="post">
     <h2>Enter new circumference</h2>
-    <p>If you've missed last week, put in an estimated value from between the week before and today.</p>
     <p> Week: 
         <input type="text" name='item_week'> 
         Measurement: 
@@ -41,7 +41,8 @@
     </form>
     <form action="go_to_homepage" method="post">
     <input type="submit" value="Back to Homepage">
-    </form>
+    </form>     
+    
 </body>
 
 </html>
