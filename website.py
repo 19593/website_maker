@@ -56,6 +56,17 @@ def close_connection(exception):
 
 #redirections
 
+#to full_measurement
+@app.route('/go_to_full_measurement', methods=['GET','POST'])
+def go_to_full_measurement():
+    return redirect('/new_measurement')
+
+@app.route('/full_measurement', methods=['GET','POST'])
+def full_measurement():
+    return render_template('/full_measurement.html')
+
+
+
 #to tables
 @app.route('/go_to_tables', methods=['GET','POST'])
 def go_to_tables():
@@ -141,6 +152,8 @@ def add_thigh():
         get_db().commit()
     return redirect('/table_thigh')
 
+
+
 #delete from table thigh
 @app.route('/delete_thigh', methods=['GET','POST'])
 def delete_thigh():
@@ -148,7 +161,7 @@ def delete_thigh():
         #get the item and delete from database
         cursor = get_db().cursor()
         id = int(request.form["item_name"])
-        sql = "DELETE FROM Thigh WHERE id=?"
+        sql = "DELETE FROM Thigh WHERE Week=?"
         cursor.execute(sql,(id,))
         get_db().commit()
     return redirect("/table_thigh")
@@ -183,7 +196,7 @@ def delete_biceps():
         #get the item and delete from database
         cursor = get_db().cursor()
         id = int(request.form["item_name"])
-        sql = "DELETE FROM Biceps WHERE id=?"
+        sql = "DELETE FROM Biceps WHERE Week=?"
         cursor.execute(sql,(id,))
         get_db().commit()
     return redirect("/table_biceps")
