@@ -58,10 +58,6 @@ def close_connection(exception):
 
 #redirections
 
-#to full_measurement
-@app.route('/full_measurement', methods=['GET','POST'])
-def full_measurement():
-    return render_template('/full_measurement.html')
 
 #to homepage
 @app.route('/go_to_homepage', methods=['GET','POST'])
@@ -105,7 +101,32 @@ def tables():
 #select right chart
 @app.route("/chart", methods=['GET','POST'])
 def chart():
-    return render_template("chart.html")
+    return render_template("/chart.html")
+
+
+
+
+
+
+
+
+
+#full_measurement
+@app.route('/full_measurement', methods=['GET','POST'])
+def full_measurement():
+    return render_template('/full_measurement.html')
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -114,7 +135,8 @@ def chart():
 #TABLES
 
 
-#table thigh
+#TABLE THIGH
+
 @app.route('/table_thigh')
 def table_thigh():
     cursor = get_db().cursor()
@@ -149,7 +171,9 @@ def delete_thigh():
 
 
 
-#table biceps
+
+#TABLE BICEPS
+
 @app.route('/table_biceps')
 def table_biceps():
     cursor = get_db().cursor()
