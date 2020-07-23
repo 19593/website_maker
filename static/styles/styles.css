@@ -53,11 +53,19 @@ table {
 
 
 
-.wrapper {
-  width: 400px;
-  height: 400px;
+body
+{
+  font-family: arial, sans-serif;
+  background-image: url('../img/gym-test.jpg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  overflow-y: scroll;
+  line-height: 1.6;
+  height: 100vh;
 }
 
-.imagestyle1 { 
-  position: relative; top: -670px; left: 220px; 
+.container{
+  width: 100%;
+  margin-left: 220px;
 }
+
