@@ -56,16 +56,87 @@ table {
 body
 {
   font-family: arial, sans-serif;
-  background-image: url('../img/gym-test.jpg');
-  background-size: contain;
-  background-repeat: no-repeat;
   overflow-y: scroll;
   line-height: 1.6;
   height: 100vh;
 }
 
-.container{
-  width: 100%;
+#image{
+  width: fit-content;
+  position: fixed;
   margin-left: 220px;
 }
 
+#image img{
+  width: 100%;
+}
+
+.container{
+  width: 100%;
+  padding-left: 220px;
+
+  padding-top: 1000px;
+  overflow-y: scroll;
+}
+
+.arrow-down{
+  width: 100%;
+  text-align: center;
+}
+
+.arrow-down::after{
+  content: '';
+  width: 70px;
+  height: 70px;
+  position: absolute;
+  margin: auto;
+  top: 430px;
+  right: 0;
+  bottom: 0;
+  left: 220px;
+  border-right: 6px solid rgb(35, 209, 171);
+  border-bottom: 6px solid rgb(35, 209, 171);
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+  -webkit-animation: 1s arrow infinite ease;
+  animation: 1s arrow infinite ease;
+  -webkit-animation-delay: 2s;
+  animation-delay: 2s;
+
+}
+
+@-webkit-keyframes arrow {
+  0%, 100% {
+    top: 430px;
+  }
+  50% {
+    top: 460px;
+  }
+}
+
+@keyframes arrow {
+  0%, 100% {
+    top: 430px;
+  }
+  50% {
+    top: 460px;
+  }
+}
+
+.arrow-down:hover{
+  content: '';
+  width: 90px;
+  height: 90px;
+  position: absolute;
+  margin: auto;
+  top: 430px;
+  right: 0;
+  bottom: 0;
+  left: 220px;
+  border-right: 7px solid rgb(29, 158, 130);
+  border-bottom: 7px solid rgb(29, 158, 130);
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+  -webkit-animation: 1.5s arrow infinite ease;
+  animation: 1.5s arrow infinite ease;
+}
