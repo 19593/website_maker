@@ -1,3 +1,12 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href={{url_for('static',filename='styles/styles.css')}}>
+    <title>Home</title>
+
 
 <html>
   <head>
@@ -33,10 +42,33 @@
     </script>
   </head>
   <body>
-    <div id="curve_chart" style="width: 1300px; height: 700px"></div>
-    <form action="go_to_homepage" method="post">
-      <input type="submit" value="Back to Homepage">
-    </form>
-
+    <div id='sidebar'>
+      <ul>
+        <ol>Development-Graphs:</ol>
+      </ul>
+      <ul>
+        <li><a href='#'>Summery</a></li>
+        <li><a href='#chart'>Category</a></li>
+      </ul>
+      <ul>
+        <ol>Make Measurement:</ol>
+      </ul>
+      <ul>
+        <li><a href='full_measurement'>Full Measurement</a></li>
+        <li><a href='#'>Specific Measurement</a></li>
+      </ul>
+      <ul>
+        <ol>Tables (Edit):</ol>
+      </ul>
+      <ul>
+        <li><a href='table_biceps'>Biceps</a></li>
+        <li><a href='table_thigh'>Thigh</a></li>
+        <li><a href='#'>Body</a></li>
+        <li><a href='#'>Body</a></li>
+        <li><a href='#'>Body</a></li>
+        <li><a href='#'>Body</a></li>
+      </ul>
+    </div>
+    <div id="curve_chart" style="width: 1300px; height: 700px" class='container'></div>
   </body>
 </html>

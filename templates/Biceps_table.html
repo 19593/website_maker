@@ -10,38 +10,67 @@
 
 
 <body>
-    <table style="width:100%">
-        <tr>
-            <th>Week:</th>
-            <th>Biceps:</th>
-            <th>Delete?</th>
-        </tr>
-        {% for item in results %}
-        <tr>
-            <td>{{item[0]}}</td>
-            <td>{{item[1]}}</td>
-            <td>
-                <form action="/delete_biceps" method="POST" onsubmit="return confirm('do you want to delete?')">
-                    <input type="hidden" name="item_name" value="{{item[0]}}">
-                    <button type="submit">delete</button>
-                </form>
-            </td>
-        </tr>
-        {% endfor %}
-    
-    </table>
-    <form action="/add_biceps" method="post">
-    <h2>Enter new circumference</h2>
-    <p> Week: 
-        <input type="text" name='item_week'> 
-        Measurement: 
-        <input type="text" name='item_biceps'>
-        <input type="submit" value="add">
-    </p>
-    </form>
-    <form action="go_to_homepage" method="post">
-    <input type="submit" value="Back to Homepage">
-    </form>     
+    <div id='sidebar'>
+        <ul>
+            <ol>Development-Graphs:</ol>
+        </ul>
+        <ul>
+            <li><a href='#'>Summery</a></li>
+            <li><a href='#chart'>Category</a></li>
+        </ul>
+        <ul>
+            <ol>Make Measurement:</ol>
+        </ul>
+        <ul>
+            <li><a href='full_measurement'>Full Measurement</a></li>
+            <li><a href='#'>Specific Measurement</a></li>
+        </ul>
+        <ul>
+            <ol>Tables (Edit):</ol>
+        </ul>
+        <ul>
+            <li><a href='table_biceps'>Biceps</a></li>
+            <li><a href='table_thigh'>Thigh</a></li>
+            <li><a href='#'>Body</a></li>
+            <li><a href='#'>Body</a></li>
+            <li><a href='#'>Body</a></li>
+            <li><a href='#'>Body</a></li>
+        </ul>
+    </div>
+    <div class='container'>
+        <table style="width:100%">
+            <tr>
+                <th>Week:</th>
+                <th>Biceps:</th>
+                <th>Delete?</th>
+            </tr>
+            {% for item in results %}
+            <tr>
+                <td>{{item[0]}}</td>
+                <td>{{item[1]}}</td>
+                <td>
+                    <form action="/delete_biceps" method="POST" onsubmit="return confirm('do you want to delete?')">
+                        <input type="hidden" name="item_name" value="{{item[0]}}">
+                        <button type="submit">delete</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        
+        </table>
+        <form action="/add_biceps" method="post">
+        <h2>Enter new circumference</h2>
+        <p> Week: 
+            <input type="text" name='item_week'> 
+            Measurement: 
+            <input type="text" name='item_biceps'>
+            <input type="submit" value="add">
+        </p>
+        </form>
+        <form action="go_to_homepage" method="post">
+        <input type="submit" value="Back to Homepage">
+        </form>     
+    </div>
     
 </body>
 
