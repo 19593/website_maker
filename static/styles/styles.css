@@ -30,6 +30,7 @@ table {
     height:100%;
     background:rgb(35, 209, 171);
 }
+
 #sidebar ul li {
     color:rgb(239, 248, 230);
     list-style:none;
@@ -52,6 +53,28 @@ table {
   background: rgb(101, 230, 202);
 }
 
+.logo img {
+  position: absolute;
+  right: 60px;
+  width: 100px;
+  height: 100px;
+}
+
+#sidebar ul li a img{
+  top: 0px;
+}
+
+.imgoverlay {
+  position: absolute;
+  right: 0px;
+  top:0;
+  width: 100px;
+  height: 100px;
+  opacity:0;
+}
+#sidebar ul li a:hover .imgoverlay{
+  opacity: 1;
+}
 
 
 body
