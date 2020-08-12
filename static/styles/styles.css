@@ -128,11 +128,26 @@ section p {
   font-size: 1.5rem;
 }
 
-section#chart {
+
+section#MeasurementDevice {
   background: rgb(0, 255, 200);
   z-index: 2;
 }
 
+section#BodyAverage {
+  background: rgb(45, 184, 154);
+  z-index: 2;
+}
+
+section#Categories {
+  background: rgb(0, 255, 200);
+  z-index: 2;
+}
+
+section#Tables {
+  background: rgb(76, 0, 255);
+  z-index: 2;
+}
 
 
 
