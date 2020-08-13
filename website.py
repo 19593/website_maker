@@ -21,8 +21,20 @@ def get_db():
     return db
 
 
-#graph_data
 
+
+
+#full_measurement
+@app.route('/full_measurement', methods=['GET','POST'])
+def full_measurement():
+    cursor = get_db().cursor()
+    sql = 'SELECT Biceps.Week, Biceps.Biceps, Thigh.Thigh FROM Biceps INNER JOIN Thigh ON Biceps.Week = Thigh.Week'
+    cursor.execute(sql)
+    results = cursor.fetchall()
+    print(results)
+    return render_template('/full_measurement.html', data = [['Date', 'Circumference']] + results )
+
+#graph_data
 @app.route('/graph_biceps')
 def graph_biceps():
     cursor = get_db().cursor()
@@ -111,10 +123,7 @@ def chart():
 
 
 
-#full_measurement
-@app.route('/full_measurement', methods=['GET','POST'])
-def full_measurement():
-    return render_template('/full_measurement.html')
+
 
 
 
