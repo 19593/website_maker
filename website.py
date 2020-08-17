@@ -24,15 +24,48 @@ def get_db():
 
 
 
+
+
+
 #full_measurement
 @app.route('/full_measurement', methods=['GET','POST'])
 def full_measurement():
     cursor = get_db().cursor()
-    sql = 'SELECT Biceps.Week, Biceps.Biceps, Thigh.Thigh FROM Biceps INNER JOIN Thigh ON Biceps.Week = Thigh.Week'
+    # sql = 'SELECT Biceps.Week, average_measurement = AVG(Biceps.Biceps, Thigh.Thigh) FROM Biceps INNER JOIN Thigh ON Biceps.Week = Thigh.Week' WORAFDAWSFASFDASDFASDFASDFASDFASDFASDFASDFASD
     cursor.execute(sql)
     results = cursor.fetchall()
     print(results)
     return render_template('/full_measurement.html', data = [['Date', 'Circumference']] + results )
+
+@app.route('/add_full_measurement', methods=['GET','POST'])
+def add_full_measurement():
+    if request.method == 'POST':
+        # insert Thigh
+        cursor = get_db().cursor()
+        new_week = request.form['item_week']
+        new_thigh = request.form['item_thigh']
+        sql = 'INSERT INTO Thigh(Week,Thigh) VALUES(?,?)'
+        cursor.execute(sql,(new_week,new_thigh))
+
+        cursor = get_db().cursor()
+        new_week = request.form['item_week']
+        new_biceps = request.form['item_biceps']
+        sql = 'INSERT INTO Biceps(Week,Biceps) VALUES(?,?)'
+        cursor.execute(sql,(new_week,new_biceps))
+        get_db().commit()
+    return redirect('/full_measurement')
+
+
+
+
+
+
+
+
+
+
+
+
 
 #graph_data
 @app.route('/graph_biceps')

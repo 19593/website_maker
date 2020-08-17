@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href={{url_for('static',filename='styles/styles.css')}}>
     <title>Tables</title>
 </head>
 
@@ -41,7 +42,7 @@
     </div>
     <!-- /sidebar -->
     </form>
-    <form action="/add_full_measurement" method="post">
+    <form action="/add_full_measurement" method="post" class='container'>
         <h2>Enter the current week you're in</h2>
         <p> Week: 
             <input type="text" name='item_week'> 
