@@ -29,13 +29,13 @@ def get_db():
 
 #full_measurement
 @app.route('/full_measurement', methods=['GET','POST'])
-def full_measurement():
-    cursor = get_db().cursor()
-    # sql = 'SELECT Biceps.Week, average_measurement = AVG(Biceps.Biceps, Thigh.Thigh) FROM Biceps INNER JOIN Thigh ON Biceps.Week = Thigh.Week' WORAFDAWSFASFDASDFASDFASDFASDFASDFASDFASDFASD
+def full_measurement():                                                                 #              |
+    cursor = get_db().cursor()                                                          #Big SQL Code \ /
+    sql = 'SELECT Week, AVG(Biceps) AS avg_Biceps FROM (SELECT Week, Biceps FROM Biceps UNION ALL SELECT Week, Thigh FROM Thigh)t GROUP BY Week HAVING COUNT(*) = 2 ORDER BY Week' 
     cursor.execute(sql)
     results = cursor.fetchall()
     print(results)
-    return render_template('/full_measurement.html', data = [['Date', 'Circumference']] + results )
+    return render_template('/full_measurement_chart.html', data = [['Date', 'Circumference']] + results )
 
 @app.route('/add_full_measurement', methods=['GET','POST'])
 def add_full_measurement():
@@ -74,6 +74,7 @@ def graph_biceps():
     sql = 'SELECT Week, Biceps FROM Biceps'
     cursor.execute(sql)
     results = cursor.fetchall()
+    print(results)
     return render_template("/biceps_chart.html", data = [['Date', 'Circumference']] + results )
 
 @app.route('/graph_thigh')
