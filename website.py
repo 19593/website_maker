@@ -125,6 +125,11 @@ def go_to_graph_biceps():
 def go_to_graph_thigh():
     return redirect('/graph_thigh')
 
+#to full_measurement
+@app.route('/go_to_full_measurement', methods=['GET','POST'])
+def go_to_full_measurement():
+    return redirect('/full_measurement')
+
 #redirections
 
 
