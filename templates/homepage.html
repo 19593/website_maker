@@ -51,26 +51,87 @@
 
     <!-- SECTIONS -->
     <div class="container">
-            <section id='Home'>
-                <body>
-                    <!-- Arrow -->
-                    <div class="hide-when_hover_over">
-                            <p><a href=#MeasurementDevice></a></p>
-                    </div>
-                </body>
-            </section>
+
+
+
+
+
+
+        <!-- HERE IS          HOME          IS HERE -->
+        <section id='Home'>
+            <body>
+                <!-- Arrow -->
+                <div class="hide-when_hover_over">
+                        <p><a href=#MeasurementDevice></a></p>
+                </div>
+            </body>
+        </section>
+
+
+
+
+
+        <!-- HERE IS     MEASUREMENTDEVICE     IS HERE -->
         <section id='MeasurementDevice'>
             <body>
                 <h1>Buy the ultimate Measuring Device, easy to use with one hand!!!</h1>
             </body>
         </section>
+
+
+
+
+
+        <!-- HERE IS        BODYAVERAGE        IS HERE -->
         <section id='BodyAverage'>
+            <html>
+                <head>
+                    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+                    <script type="text/javascript">
+                        google.charts.load('current', {packages: ['corechart', 'line']});
+                        google.charts.setOnLoadCallback(drawBasic);
+                
+                        function drawBasic() {
+                        //adding values
+                        var data = google.visualization.arrayToDataTable(
+                            {{ data|tojson }} 
+                        );
+                        
+                        //defining table
+                        var options = {
+                            title: 'AVG development',
+                            hAxis: {
+                                title: 'Week',
+                                logScale: false
+                            },
+                            vAxis: {
+                                title: 'Average Measurements (cm)',
+                                logScale: false
+                            },
+                            legend: { position: 'bottom' }
+                            };
+                
+                        var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+                
+                        chart.draw(data, options);
+                        }
+                    </script>
+                </head> 
+            </html>
             <body>
-                <form action="/go_to_full_measurement" method="post">
+                <div id="curve_chart" style="width: 100%; height: 100vh;"></div>
+                <!-- <form action="/go_to_full_measurement" method="post">
                     <input type="submit" value="BodyAverage">
-                </form>
+                </form> -->
+
             </body>
         </section>
+
+
+
+
+
+        <!-- HERE IS         CATEGORIES        IS HERE -->
         <section id='Categories'>
             <body>
                 <form action="/go_to_graph_biceps" method="post">
@@ -81,8 +142,21 @@
                 </form>
             </body>
         </section>
+
+
+
+
+
+        <!-- HERE IS          TABLES         IS HERE -->
         <section id='Tables'>
-            
+            <body>
+                <form action="/go_to_table_biceps" method="post">
+                    <input type="submit" value="Biceps">
+                </form>
+                <form action="/go_to_table_thigh" method="post">
+                    <input type="submit" value="Thigh">
+                </form>
+            </body>
         </section>
     </div>
 </body>

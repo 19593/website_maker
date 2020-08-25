@@ -29,13 +29,16 @@ def get_db():
 
 #full_measurement
 @app.route('/full_measurement', methods=['GET','POST'])
-def full_measurement():                                                                 #              |
-    cursor = get_db().cursor()                                                          #Big SQL Code \ /
+def full_measurement():                                                                 #                   |
+    cursor = get_db().cursor()                                                          #Big SQL Statement \ /
     sql = 'SELECT Week, AVG(Biceps) AS avg_Biceps FROM (SELECT Week, Biceps FROM Biceps UNION ALL SELECT Week, Thigh FROM Thigh)t GROUP BY Week HAVING COUNT(*) = 2 ORDER BY Week' 
     cursor.execute(sql)
     results = cursor.fetchall()
-    print(results)
+    # print(results)
     return render_template('/full_measurement_chart.html', data = [['Date', 'Circumference']] + results )
+
+
+
 
 @app.route('/add_full_measurement', methods=['GET','POST'])
 def add_full_measurement():
@@ -130,6 +133,17 @@ def go_to_graph_thigh():
 def go_to_full_measurement():
     return redirect('/full_measurement')
 
+#to full_measurement
+@app.route('/go_to_table_thigh', methods=['GET','POST'])
+def go_to_table_thigh():
+    return redirect('/table_thigh')
+
+#to full_measurement
+@app.route('/go_to_table_biceps', methods=['GET','POST'])
+def go_to_table_biceps():
+    return redirect('/table_biceps')
+
+
 #redirections
 
 
@@ -142,7 +156,12 @@ def go_to_full_measurement():
 #homepage
 @app.route('/', methods=['GET','POST'])
 def home():
-    return render_template('homepage.html')
+    cursor = get_db().cursor()                                                          #Big SQL Statement \ /
+    sql = 'SELECT Week, AVG(Biceps) AS avg_Biceps FROM (SELECT Week, Biceps FROM Biceps UNION ALL SELECT Week, Thigh FROM Thigh)t GROUP BY Week HAVING COUNT(*) = 2 ORDER BY Week' 
+    cursor.execute(sql)
+    results = cursor.fetchall()
+    # print(results)
+    return render_template('homepage.html', data = [['Date', 'Circumference']] + results )
 
 #select right table
 @app.route("/tables", methods=['GET','POST'])
