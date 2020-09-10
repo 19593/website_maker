@@ -22,24 +22,6 @@ def get_db():
 
 
 
-
-
-
-
-
-#full_measurement
-@app.route('/full_measurement', methods=['GET','POST'])
-def full_measurement():                                                                 #                   |
-    cursor = get_db().cursor()                                                          #Big SQL Statement \ /
-    sql = 'SELECT Week, AVG(Biceps) AS avg_Biceps FROM (SELECT Week, Biceps FROM Biceps UNION ALL SELECT Week, Thigh FROM Thigh)t GROUP BY Week HAVING COUNT(*) = 2 ORDER BY Week' 
-    cursor.execute(sql)
-    results = cursor.fetchall()
-    # print(results)
-    return render_template('/full_measurement_chart.html', data = [['Date', 'Circumference']] + results )
-
-
-
-
 @app.route('/add_full_measurement', methods=['GET','POST'])
 def add_full_measurement():
     if request.method == 'POST':
@@ -57,16 +39,6 @@ def add_full_measurement():
         cursor.execute(sql,(new_week,new_biceps))
         get_db().commit()
     return redirect('/full_measurement')
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -88,7 +60,14 @@ def graph_thigh():
     results = cursor.fetchall()
     return render_template("/thigh_chart.html", data = [['Date', 'Circumference']] + results )
 
-
+@app.route('/graph_uarm')
+def graph_uarm():
+    cursor = get_db().cursor()
+    sql = 'SELECT Week, Uarm FROM Uarm'
+    cursor.execute(sql)
+    results = cursor.fetchall()
+    print(results)
+    return render_template("/uarm_chart.html", data = [['Date', 'Circumference']] + results )
 
 
 
@@ -103,20 +82,18 @@ def close_connection(exception):
 
 
 
-
-
 #redirections
+
+#to chart list
+@app.route('/go_to_chart', methods=['GET','POST'])
+def go_to_charts():
+    return redirect('/chart')
 
 
 #to homepage
 @app.route('/go_to_homepage', methods=['GET','POST'])
 def go_to_homepage():
     return redirect('/')
-
-#to chart list
-@app.route('/go_to_chart', methods=['GET','POST'])
-def go_to_charts():
-    return redirect('/chart')
 
 #to graph_biceps
 @app.route('/go_to_graph_biceps', methods=['GET','POST'])
@@ -128,20 +105,30 @@ def go_to_graph_biceps():
 def go_to_graph_thigh():
     return redirect('/graph_thigh')
 
+#to graph_uarm
+@app.route('/go_to_graph_uarm', methods=['GET','POST'])
+def go_to_graph_uarm():
+    return redirect('/graph_uarm')
+
 #to full_measurement
 @app.route('/go_to_full_measurement', methods=['GET','POST'])
 def go_to_full_measurement():
     return redirect('/full_measurement')
 
-#to full_measurement
+#to table thigh
 @app.route('/go_to_table_thigh', methods=['GET','POST'])
 def go_to_table_thigh():
     return redirect('/table_thigh')
 
-#to full_measurement
+#to table biceps
 @app.route('/go_to_table_biceps', methods=['GET','POST'])
 def go_to_table_biceps():
     return redirect('/table_biceps')
+
+#to table uarm
+@app.route('/go_to_table_uarm', methods=['GET','POST'])
+def go_to_table_uarm():
+    return redirect('/table_uarm')
 
 
 #redirections
@@ -150,14 +137,11 @@ def go_to_table_biceps():
 
 
 
-
-
-
 #homepage
 @app.route('/', methods=['GET','POST'])
-def home():
-    cursor = get_db().cursor()                                                          #Big SQL Statement \ /
-    sql = 'SELECT Week, AVG(Biceps) AS avg_Biceps FROM (SELECT Week, Biceps FROM Biceps UNION ALL SELECT Week, Thigh FROM Thigh)t GROUP BY Week HAVING COUNT(*) = 2 ORDER BY Week' 
+def home():                                  #                   |
+    cursor = get_db().cursor()                           #Big SQL Statement \ /<        Union Thigh                             Union Calce                             Union Uarm
+    sql = 'SELECT Week, AVG(Biceps) AS avg_Biceps FROM (SELECT Week, Biceps FROM Biceps UNION ALL SELECT Week, Thigh FROM Thigh UNION ALL SELECT Week, Calve FROM Calve UNION ALL SELECT Week, Uarm FROM Uarm)t GROUP BY Week HAVING COUNT(*) = 4 ORDER BY Week' 
     cursor.execute(sql)
     results = cursor.fetchall()
     # print(results)
@@ -172,28 +156,6 @@ def tables():
 @app.route("/chart", methods=['GET','POST'])
 def chart():
     return render_template("/chart.html")
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -276,12 +238,43 @@ def delete_biceps():
 
 
 
+#TABLE UARM
+
+@app.route('/table_uarm')
+def table_uarm():
+    cursor = get_db().cursor()
+    sql = 'SELECT * FROM Uarm'
+    cursor.execute(sql)
+    results = cursor.fetchall()
+    return render_template('Uarm_table.html', results=results)
+
+#add to table biceps
+@app.route('/add_uarm', methods=['GET','POST'])
+def add_uarm():
+    if request.method == 'POST':
+        cursor = get_db().cursor()
+        new_uarm = request.form['item_uarm']
+        new_week = request.form['item_week']
+        sql = 'INSERT INTO Uarm(Week,Uarm) VALUES(?,?)'
+        cursor.execute(sql,(new_week,new_uarm))
+        get_db().commit()
+    return redirect('/table_uarm')
+
+#delete from table biceps
+@app.route('/delete_uarm', methods=['GET','POST'])
+def delete_uarm():
+    if request.method == 'POST':
+        #get the item and delete from database
+        cursor = get_db().cursor()
+        id = int(request.form["item_name"])
+        sql = "DELETE FROM Uarm WHERE Week=?"
+        cursor.execute(sql,(id,))
+        get_db().commit()
+    return redirect("/table_uarm")
 
 
 
 
-
-   
 
 if __name__== '__main__':
     app.run(debug=True)

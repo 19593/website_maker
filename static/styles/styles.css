@@ -24,6 +24,29 @@ table {
     scroll-behavior: smooth;
 }
 
+#categories {
+  width: 100%;
+  height: 100px;
+  top: 0px;
+  background:rgb(35, 125, 209);
+}
+
+#categories ul li {
+  color:rgb(38, 39, 37);
+  list-style: none;
+  padding:37.5px 30px;
+  border-bottom:1px solid rgba(100,100,100,0.3);
+}
+
+#categories ul li a {
+color: rgb(38, 39, 37);
+display: fill;
+}
+
+#categories ul li:hover{
+background: rgb(101, 230, 202);
+}
+
 #sidebar {
     position:fixed;
     width:220px;
@@ -135,7 +158,7 @@ section#MeasurementDevice {
 }
 
 section#BodyAverage {
-  background: rgb(45, 184, 154);
+  background: #05dade;
   z-index: 2;
 }
 
@@ -185,8 +208,8 @@ section#Tables {
   right: 0;
   bottom: 0;
   left: 220px;
-  border-right: 8px solid rgb(155, 199, 35);
-  border-bottom: 8px solid rgb(155, 199, 35);
+  border-right: 8px solid rgb(143, 255, 231);
+  border-bottom: 8px solid rgb(143, 255, 231);
   -webkit-transform: rotate(45deg);
   transform: rotate(45deg);
   -webkit-animation: 0.5s arrow_hover ease;

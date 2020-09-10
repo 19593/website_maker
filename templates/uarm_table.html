@@ -5,45 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href={{url_for('static',filename='styles/styles.css')}}>
-    <title>Chart_Biceps</title>
+    <title>Contents_Uarm</title>
+</head>
 
 
-<html>
-  <head>
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
-      google.charts.load('current', {packages: ['corechart', 'line']});
-      google.charts.setOnLoadCallback(drawBasic);
-
-      function drawBasic() {
-        //adding values
-        var data = google.visualization.arrayToDataTable(
-          {{ data|tojson }} 
-        );
-        
-        //defining table
-        var options = {
-            title: 'Biceps development',
-            hAxis: {
-              title: 'Week',
-              logScale: false
-            },
-            vAxis: {
-              title: 'Measurement (cm)',
-              logScale: false
-            },
-            legend: { position: 'bottom' }
-          };
-
-        var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
-
-        chart.draw(data, options);
-      }
-    </script>
-  </head>
-  <body>
+<body>
     <!-- sidebar -->
-      <div id='sidebar'>
+    <div id='sidebar'>
         <ul>
             <li class='logo' style='height: 101px'>
                 <!-- <a href ='/go_to_homepage'> -->
@@ -74,6 +42,42 @@
         </ul>
     </div>
     <!-- /sidebar -->
-    <div id="curve_chart" style="width: 1300px; height: 700px" class='container'></div>
-  </body>
+
+    <div class='container'>
+        <table style="width:100%">
+            <tr>
+                <th>Week:</th>
+                <th>UnderArm:</th>
+                <th>Delete?</th>
+            </tr>
+            {% for item in results %}
+            <tr>
+                <td>{{item[0]}}</td>
+                <td>{{item[1]}}</td>
+                <td>
+                    <form action="/delete_uarm" method="POST" onsubmit="return confirm('do you want to delete?')">
+                        <input type="hidden" name="item_name" value="{{item[0]}}">
+                        <button type="submit">delete</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+
+
+        <form action="/add_uarm" method="post">
+        <h2>Enter new circumference</h2>
+        <p> Week: 
+            <input type="text" name='item_week'> 
+            Measurement: 
+            <input type="text" name='item_uarm'>
+            <input type="submit" value="add">
+        </p>
+        </form>
+        <form action="go_to_homepage" method="post">
+        <input type="submit" value="Back to Homepage">
+        </form>
+    </div>
+</body>
+
 </html>

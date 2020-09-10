@@ -92,38 +92,48 @@
                         google.charts.setOnLoadCallback(drawBasic);
                 
                         function drawBasic() {
-                        //adding values
-                        var data = google.visualization.arrayToDataTable(
-                            {{ data|tojson }} 
-                        );
+                            //adding values
+                            var data = google.visualization.arrayToDataTable(
+                                {{ data|tojson }} 
+                            );
                         
-                        //defining table
-                        var options = {
-                            title: 'AVG development',
-                            hAxis: {
-                                title: 'Week',
-                                logScale: false
-                            },
-                            vAxis: {
-                                title: 'Average Measurements (cm)',
-                                logScale: false
-                            },
-                            legend: { position: 'bottom' }
+                            //defining table
+                            var options = {
+                                title: 'AVG development',
+                                hAxis: {
+                                    title: 'Week',
+                                    logScale: false,
+                                    gridlines: {color: '#09fffd'}
+                                },
+                                vAxis: {
+                                    title: 'Average Measurements (cm)',
+                                    logScale: false,
+                                    gridlines: {color: '#09fffd'}
+                                },
+                                legend: { position: 'bottom' },
+                                chartArea: {
+                                    backgroundColor: {
+                                        stroke: '#000000',
+                                        strokeWidth: 2,
+                                        fill: 'white',
+                                        fillOpacity: 1
+                                    },
+                                },
+                                backgroundColor: {
+                                    fill: 'bright_blue',
+                                    fillOpacity: 0
+                                },
                             };
-                
-                        var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
-                
-                        chart.draw(data, options);
-                        }
+                    
+                            var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+                    
+                            chart.draw(data, options);
+                        };
                     </script>
                 </head> 
             </html>
             <body>
                 <div id="curve_chart" style="width: 100%; height: 100vh;"></div>
-                <!-- <form action="/go_to_full_measurement" method="post">
-                    <input type="submit" value="BodyAverage">
-                </form> -->
-
             </body>
         </section>
 
@@ -133,14 +143,25 @@
 
         <!-- HERE IS         CATEGORIES        IS HERE -->
         <section id='Categories'>
-            <body>
+            <div id='categories'>
+                <ul>
+                    <li><a href='#MeasurementDevice'><h3>Measurement Device</h3></a></li>
+                </ul>
+                <!-- <ul>
+                    <li><a href='#MeasurementDevice'>Measurement Device</a></li>
+                </ul>
+                <ul>
+                    <li><a href='#MeasurementDevice'>Measurement Device</a></li>
+                </ul> -->
+            </div>
+            <!-- <body>
                 <form action="/go_to_graph_biceps" method="post">
                     <input type="submit" value="Biceps">
                 </form>
                 <form action="/go_to_graph_thigh" method="post">
                     <input type="submit" value="Thigh">
                 </form>
-            </body>
+            </body> -->
         </section>
 
 
@@ -155,6 +176,9 @@
                 </form>
                 <form action="/go_to_table_thigh" method="post">
                     <input type="submit" value="Thigh">
+                </form>
+                <form action="/go_to_table_uarm" method="post">
+                    <input type="submit" value="Uarm">
                 </form>
             </body>
         </section>
