@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href={{url_for('static',filename='styles/styles.css')}}>
+    <title>Chart_Calve</title>
+</head>
+
+<html>
+  <head>
+    <!-- sidebar -->
+    <div id='sidebar'>
+        <ul>
+            <li class='logo' style='height: 101px'>
+                <!-- <a href ='/go_to_homepage'> -->
+                <a href ='/go_to_homepage'>
+                    <img src="../static/img/YouLogo.PNG">
+                    <img class="imgoverlay" src="../static/img/YouLogo-hover.png">
+                </a>
+            </li>
+        </ul>
+        <ul>
+            <ol>Shop:</ol>
+        </ul>
+        <ul>
+            <li><a href='/go_to_homepage#MeasurementDevice'>Measurement Device</a></li>
+        </ul>
+        <ul>
+            <ol>Development-Graphs:</ol>
+        </ul>
+        <ul>
+            <li><a href='/go_to_homepage#BodyAverage'>BodyAverage</a></li>
+            <li><a href='/go_to_homepage#Categories'>Categories</a></li>
+        </ul>
+        <ul>
+            <ol>Add/Edit/Delete Records:</ol>
+        </ul>
+        <ul>
+            <li><a href='/go_to_homepage#Tables'>Tables</a></li>
+        </ul>
+    </div>
+    <!-- /sidebar -->
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {packages: ['corechart', 'line']});
+      google.charts.setOnLoadCallback(drawBasic);
+
+      function drawBasic() {
+        //adding values
+        var data = google.visualization.arrayToDataTable(
+          {{ data|tojson }} 
+        );
+        
+        //defining table
+        var options = {
+          title: 'Calve development',
+          hAxis: {
+            title: 'Week',
+            logScale: false
+          },
+          vAxis: {
+            title: 'Measurement (cm)',
+            logScale: false
+          },
+          legend: { position: 'bottom' }
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+        chart.draw(data, options);
+      }
+    </script>
+  </head>
+  <body>
+    <div id="curve_chart" style="width: 1300px; height: 700px" class='container'></div>
+  </body>
+</html>

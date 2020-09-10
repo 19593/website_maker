@@ -18,33 +18,31 @@ table {
     margin:0px;
     padding:0px;
     box-sizing: border-box;
-    list-style: none;
     text-decoration: none;
     font-family:'Rockwell';
     scroll-behavior: smooth;
 }
 
-#categories {
-  width: 100%;
-  height: 100px;
-  top: 0px;
+.DropChart {
+  text-align: center;
   background:rgb(35, 125, 209);
 }
 
-#categories ul li {
-  color:rgb(38, 39, 37);
+.DropChart ul {
+  display: inline-flex;
   list-style: none;
-  padding:37.5px 30px;
-  border-bottom:1px solid rgba(100,100,100,0.3);
+  color: #fff;
+
 }
 
-#categories ul li a {
-color: rgb(38, 39, 37);
-display: fill;
+.DropChart ul li {
+  width: 120px;
+  padding: 15px;
 }
 
-#categories ul li:hover{
-background: rgb(101, 230, 202);
+
+.DropChart ul li:hover{
+background: rgb(53, 215, 255);
 }
 
 #sidebar {

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href={{url_for('static',filename='styles/styles.css')}}>
+    <title>Contents_Calve</title>
+</head>
+
+
+<body>
+    <!-- sidebar -->
+    <div id='sidebar'>
+        <ul>
+            <li class='logo' style='height: 101px'>
+                <!-- <a href ='/go_to_homepage'> -->
+                <a href ='/go_to_homepage'>
+                    <img src="../static/img/YouLogo.PNG">
+                    <img class="imgoverlay" src="../static/img/YouLogo-hover.png">
+                </a>
+            </li>
+        </ul>
+        <ul>
+            <ol>Shop:</ol>
+        </ul>
+        <ul>
+            <li><a href='/go_to_homepage#MeasurementDevice'>Measurement Device</a></li>
+        </ul>
+        <ul>
+            <ol>Development-Graphs:</ol>
+        </ul>
+        <ul>
+            <li><a href='/go_to_homepage#BodyAverage'>BodyAverage</a></li>
+            <li><a href='/go_to_homepage#Categories'>Categories</a></li>
+        </ul>
+        <ul>
+            <ol>Add/Edit/Delete Records:</ol>
+        </ul>
+        <ul>
+            <li><a href='/go_to_homepage#Tables'>Tables</a></li>
+        </ul>
+    </div>
+    <!-- /sidebar -->
+
+    <div class='container'>
+        <table style="width:100%">
+            <tr>
+                <th>Week:</th>
+                <th>Calve:</th>
+                <th>Delete?</th>
+            </tr>
+            {% for item in results %}
+            <tr>
+                <td>{{item[0]}}</td>
+                <td>{{item[1]}}</td>
+                <td>
+                    <form action="/delete_calve" method="POST" onsubmit="return confirm('do you want to delete?')">
+                        <input type="hidden" name="item_name" value="{{item[0]}}">
+                        <button type="submit">delete</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+
+
+        <form action="/add_calve" method="post">
+        <h2>Enter new circumference</h2>
+        <p> Week: 
+            <input type="text" name='item_week'> 
+            Measurement: 
+            <input type="text" name='item_calve'>
+            <input type="submit" value="add">
+        </p>
+        </form>
+        <form action="go_to_homepage" method="post">
+        <input type="submit" value="Back to Homepage">
+        </form>
+    </div>
+</body>
+
+</html>
