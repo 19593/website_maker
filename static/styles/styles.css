@@ -253,38 +253,103 @@ p a{
   color: #fff;
 }
 
-.DropChart ul li {
+.DropChart ul li.a {
   display: inline-flex;
   list-style: none;
-  width: 25%;
+  width: 24.75%;
   color: #fff;
+  padding: 20px;
+  font-size: 38.5px;
 }
 
-.chartdrop1 {
+.DropChart ul li.b {
+  display: inline-flex;
+  list-style: none;
+  width: 24.75%;
+  color: #fff;
+  padding: 20px;
+  font-size: 38.5px;
+}
+
+.DropChart ul li.c {
+  display: inline-flex;
+  list-style: none;
+  width: 24.75%;
+  color: #fff;
+  padding: 20px;
+  font-size: 38.5px;
+}
+
+.DropChart ul li.d {
+  display: inline-flex;
+  list-style: none;
+  width: 24.75%;
+  color: #fff;
+  padding: 20px;
+  font-size: 38.5px;
+}
+
+/* .chartdrop1 {
   display: none;
   position: unset;
-  bottom: 101px;
+  top: 101px;
 }
+
 .chartdrop2 {
   display: none;
   position: unset;
-  bottom: 101px;
+  top: 101px;
 }
+
 .chartdrop3 {
   display: none;
   position: unset;
-  bottom: 101px;
+  top: 101px;
 }
+
 .chartdrop4 {
   display: none;
   position: unset;
-  bottom: 101px;
-}
+  top: 101px;
+} */
+
+
 
 .DropChart ul li:hover {
   background: rgb(53, 215, 255);
 }
 
-.DropChart ul li:hover + .chartdrop1{
+.chartdrop {
+  display: none;
+}
+
+.chartdrop.show {
   display: block;
+}
+/* .DropChart ul li.a:hover .chartdrop1{
+  display: block;
+}
+
+.DropChart ul li.b:hover .chartdrop2{
+  display: block;
+}
+
+.DropChart ul li.c:hover .chartdrop3{
+  display: block;
+}
+
+.DropChart ul li.d:hover .chartdrop4{
+  display: block;
+} */
+
+a {
+  color: white;
+}
+
+a:hover {
+  color: #a9ffe2;
+}
+
+a:active {
+  color: rgb(63, 0, 163)
 }
