@@ -160,8 +160,10 @@ def home():                                              #                   |
     sql = 'SELECT Week, AVG(Biceps) AS avg_Biceps FROM (SELECT Week, Biceps FROM Biceps UNION ALL SELECT Week, Thigh FROM Thigh UNION ALL SELECT Week, Calve FROM Calve UNION ALL SELECT Week, Uarm FROM Uarm)t GROUP BY Week HAVING COUNT(*) = 4 ORDER BY Week' 
     cursor.execute(sql)
     results = cursor.fetchall()
-    # print(results)
-    return render_template('homepage.html', data = [['Date', 'Circumference']] + results )
+    sql1 = 'SELECT Week, Biceps FROM Biceps' 
+    cursor.execute(sql1)
+    results1 = cursor.fetchall()
+    return render_template('homepage.html', data = [['Date', 'Circumference']] + results, data1 = [['Date', 'Circumference']] + results1 )
 
 #select right table
 @app.route("/tables", methods=['GET','POST'])

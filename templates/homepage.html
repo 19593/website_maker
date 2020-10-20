@@ -1,6 +1,98 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Draw all charts -->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        google.charts.load('current', {packages: ['corechart', 'line']});
+        google.charts.setOnLoadCallback(drawAverage);
+        google.charts.setOnLoadCallback(drawBiceps);
+
+
+        // DRAW AVERAGE ------------------------------------------------------------------------------------------------------------
+
+        function drawAverage() {
+            //adding values
+            var data = google.visualization.arrayToDataTable(
+                {{ data|tojson }} 
+            );
+        
+            //defining table
+            var options = {
+                title: 'AVG development',
+                hAxis: {
+                    title: 'Week',
+                    logScale: false,
+                    gridlines: {color: '#09fffd'}
+                },
+                vAxis: {
+                    title: 'Average Measurements (cm)',
+                    logScale: false,
+                    gridlines: {color: '#09fffd'}
+                },
+                legend: { position: 'bottom' },
+                chartArea: {
+                    backgroundColor: {
+                        stroke: '#000000',
+                        strokeWidth: 2,
+                        fill: 'white',
+                        fillOpacity: 1
+                    },
+                },
+                backgroundColor: {
+                    fill: 'bright_blue',
+                    fillOpacity: 0
+                },
+            };
+    
+            var chart = new google.visualization.LineChart(document.getElementById('Average_Chart'));
+            chart.draw(data, options);
+            
+        };
+
+
+
+        // DRAW BICEPS ------------------------------------------------------------------------------------------------------------
+
+        function drawBiceps() {
+            //adding values
+            var data1 = google.visualization.arrayToDataTable(
+                {{ data1|tojson }} 
+            );
+            //defining table
+            var options = {
+                title: 'AVG development',
+                hAxis: {
+                    title: 'Week',
+                    logScale: false,
+                    gridlines: {color: '#09fffd'}
+                },
+                vAxis: {
+                    title: 'Biceps Measurements (cm)',
+                    logScale: false,
+                    gridlines: {color: '#09fffd'}
+                },
+                legend: { 
+                    position: 'bottom' 
+                },
+                chartArea: {
+                    backgroundColor: {
+                        stroke: '#000000',
+                        strokeWidth: 2,
+                        fill: 'white',
+                        fillOpacity: 1
+                    },
+                },
+                backgroundColor: {
+                    fill: 'bright_blue',
+                    fillOpacity: 0
+                },
+            };
+
+            var chart1 = new google.visualization.LineChart(document.getElementById('Biceps_Chart'));
+            chart1.draw(data1,options);
+        }
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -84,56 +176,8 @@
 
         <!-- HERE IS        BODYAVERAGE        IS HERE -->
         <section id='BodyAverage'>
-            <html>
-                <head>
-                    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-                    <script type="text/javascript">
-                        google.charts.load('current', {packages: ['corechart', 'line']});
-                        google.charts.setOnLoadCallback(drawBasic);
-                
-                        function drawBasic() {
-                            //adding values
-                            var data = google.visualization.arrayToDataTable(
-                                {{ data|tojson }} 
-                            );
-                        
-                            //defining table
-                            var options = {
-                                title: 'AVG development',
-                                hAxis: {
-                                    title: 'Week',
-                                    logScale: false,
-                                    gridlines: {color: '#09fffd'}
-                                },
-                                vAxis: {
-                                    title: 'Average Measurements (cm)',
-                                    logScale: false,
-                                    gridlines: {color: '#09fffd'}
-                                },
-                                legend: { position: 'bottom' },
-                                chartArea: {
-                                    backgroundColor: {
-                                        stroke: '#000000',
-                                        strokeWidth: 2,
-                                        fill: 'white',
-                                        fillOpacity: 1
-                                    },
-                                },
-                                backgroundColor: {
-                                    fill: 'bright_blue',
-                                    fillOpacity: 0
-                                },
-                            };
-                    
-                            var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
-                    
-                            chart.draw(data, options);
-                        };
-                    </script>
-                </head> 
-            </html>
             <body>
-                <div id="curve_chart" style='width: 1000pt; height: 1000pt;'></div>  <!-- WORK ON -->
+                <div id="Average_Chart" style='width: 100%; height: 100%;'></div>  <!-- WORK ON -->
             </body>
         </section>
 
@@ -143,59 +187,34 @@
 
         <!-- HERE IS         CATEGORIES        IS HERE -->
         <section id='Categories'>
-            <body>
-                <div class="containerChart">
-                    <div class="DropChart">
-                        <ul>
-                            <li class="a"><a onclick="toggle_chart('.chartdrop1')">Biceps</a></li>
-                            <li class="b"><a onclick="toggle_chart('.chartdrop2')">Thigh</a></li>
-                            <li class="c"><a onclick="toggle_chart('.chartdrop3')">Lower-arm</a></li>
-                            <li class="d"><a onclick="toggle_chart('.chartdrop4')">Calve</a></li>
-                        </ul>
-                    </div>
-                    <div class="chartdrop chartdrop1">
-                        <!-- <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-                        <script type="text/javascript">
-                        google.charts.load('current', {packages: ['corechart', 'line']});
-                        google.charts.setOnLoadCallback(drawBasic);
-
-                        function drawBasic() {
-                            //adding values
-                            var data = google.visualization.arrayToDataTable(
-                            {{ data|tojson }} 
-                            );
-                            
-                            //defining table
-                            var options = {
-                                title: 'Biceps development',
-                                hAxis: {
-                                title: 'Week',
-                                logScale: false
-                                },
-                                vAxis: {
-                                title: 'Measurement (cm)',
-                                logScale: false
-                                },
-                                legend: { position: 'bottom' }
-                            };
-
-                            var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
-
-                            chart.draw(data, options);
-                        }
-                        </script> -->
-                    </div>
-                    <div class="chartdrop chartdrop2">
-                        <p>Hello World!1</p>
-                    </div>
-                    <div class="chartdrop chartdrop3">
-                        <p>Hello World!12</p>
-                    </div>
-                    <div class="chartdrop chartdrop4">
-                        <p>Hello World!123</p>
-                    </div>
-                </div>
-            </body>
+            <div class="DropChart">
+                <ul>
+                    <li class="a"><a onclick="toggle_chart('.chartdrop1')">Biceps</a></li>
+                    <li class="b"><a onclick="toggle_chart('.chartdrop2')">Thigh</a></li>
+                    <li class="c"><a onclick="toggle_chart('.chartdrop3')">Lower-arm</a></li>
+                    <li class="d"><a onclick="toggle_chart('.chartdrop4')">Calve</a></li>
+                </ul>
+            </div>
+            <div class="chartdrop chartdrop1">
+                <body>
+                    <div id="Biceps_Chart" style='width: 100%; height: 100%;'></div>  
+                </body>
+            </div>
+            <div class="chartdrop chartdrop2">
+                <form action="/go_to_graph_thigh" method="post">
+                    <input type="submit" value="Thigh">
+                </form>
+            </div>
+            <div class="chartdrop chartdrop3">
+                <form action="/go_to_graph_uarm" method="post">
+                    <input type="submit" value="Lower-Arm">
+                </form>
+            </div>
+            <div class="chartdrop chartdrop4">
+                <form action="/go_to_graph_calve" method="post">
+                    <input type="submit" value="Calve">
+                </form>
+            </div>
             <script>
                 function toggle_chart(target) {
                     document.querySelectorAll('.chartdrop').forEach(element => {
