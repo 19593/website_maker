@@ -5,13 +5,17 @@ table {
   }
   
   td, th {
-    border: 1px solid #dddddd;
+    border: 1px solid #554f4f;
     text-align: left;
     padding: 8px;
   }
   
   tr:nth-child(even) {
-    background-color: #dddddd;
+    background-color: #a4bdff;
+  }
+
+  tr:nth-child(odd) {
+    background-color: #8ed1fd;
   }
   
 *{
@@ -108,8 +112,19 @@ body
   padding-left: 220px;
   overflow-y: scroll;
   scroll-behavior: smooth;
+  scroll-snap-type: y mandatory;
+  scroll-snap-points-y: repeat(100vh);
 }
 
+.child {
+  scroll-snap-align: start;
+}
+
+.containerTables{
+  width: 100%;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+}
 
 
 section {

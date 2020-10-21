@@ -284,7 +284,7 @@
 
 
         <!-- HERE IS          HOME          IS HERE -->
-        <section id='Home'>
+        <section id='Home', class="child">
             <body>
                 <!-- Arrow -->
                 <div class="hide-when_hover_over">
@@ -298,7 +298,7 @@
 
 
         <!-- HERE IS     MEASUREMENTDEVICE     IS HERE -->
-        <section id='MeasurementDevice'>
+        <section id='MeasurementDevice', class="child">
             <body>
                 <h1>Buy the ultimate Measuring Device, easy to use with one hand!!!</h1>
             </body>
@@ -309,7 +309,7 @@
 
 
         <!-- HERE IS        BODYAVERAGE        IS HERE -->
-        <section id='BodyAverage'>
+        <section id='BodyAverage', class="child">
             <body>
                 <div id="Average_Chart" style='width: 100%; height: 100%;'></div>  <!-- WORK ON -->
             </body>
@@ -320,10 +320,10 @@
 
 
         <!-- HERE IS         CATEGORIES        IS HERE -->
-        <section id='Categories'>
+        <section id='Categories', class="child">
             <div class="DropChart">
                 <ul>
-                <li class="a"><a onclick="toggle_chart('.chartdrop1')">Biceps</a></li>
+                    <li class="a"><a onclick="toggle_chart('.chartdrop1')">Biceps</a></li>
                     <li class="b"><a onclick="toggle_chart('.chartdrop2')">Thigh</a></li>
                     <li class="c"><a onclick="toggle_chart('.chartdrop3')">Lower-arm</a></li>
                     <li class="d"><a onclick="toggle_chart('.chartdrop4')">Calve</a></li>
@@ -369,21 +369,147 @@
 
 
         <!-- HERE IS          TABLES         IS HERE -->
-        <section id='Tables'>
-            <body>
-                <form action="/go_to_table_biceps" method="post">
-                    <input type="submit" value="Biceps">
-                </form>
-                <form action="/go_to_table_thigh" method="post">
-                    <input type="submit" value="Thigh">
-                </form>
-                <form action="/go_to_table_uarm" method="post">
-                    <input type="submit" value="Under-arm">
-                </form>
-                <form action="/go_to_table_calve" method="post">
-                    <input type="submit" value="Calve">
-                </form>
-            </body>
+        <section id='Tables', class="child">
+            <div class="DropChart">
+                <ul>
+                    <li class="a"><a onclick="toggle_chart('.chartdrop5')">Biceps</a></li>
+                    <li class="b"><a onclick="toggle_chart('.chartdrop6')">Thigh</a></li>
+                    <li class="c"><a onclick="toggle_chart('.chartdrop7')">Lower-arm</a></li>
+                    <li class="d"><a onclick="toggle_chart('.chartdrop8')">Calve</a></li>
+                </ul>
+            </div>
+            <div class="chartdrop chartdrop5">
+                <body>
+                    <div class='containerTables'>
+                        <form action="/add_biceps" method="post">
+                            <h2>Enter new circumference</h2>
+                            <p> Week: 
+                                <input type="text" name='item_week'> 
+                                Measurement: 
+                                <input type="text" name='item_biceps'>
+                                <input type="submit" value="add">
+                            </p>
+                        </form>
+                        <table style="width:100%">
+                            <tr>
+                                <th>Week:</th>
+                                <th>Biceps:</th>
+                                <th>Delete?</th>
+                            </tr>
+                            {% for item in resultstablebiceps %}
+                            <tr>
+                                <td>{{item[0]}}</td>
+                                <td>{{item[1]}}</td>
+                                <td>
+                                    <form action="/delete_biceps" method="POST" onsubmit="return confirm('do you want to delete?')">
+                                        <input type="hidden" name="item_name" value="{{item[0]}}">
+                                        <button type="submit">delete</button>
+                                    </form>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                </body>
+            </div>
+            <div class="chartdrop chartdrop6">
+                <body>
+                    <div class='containerTables'>
+                        <form action="/add_thigh" method="post">
+                            <h2>Enter new circumference</h2>
+                            <p> Week: 
+                                <input type="text" name='item_week'> 
+                                Measurement: 
+                                <input type="text" name='item_thigh'>
+                                <input type="submit" value="add">
+                            </p>
+                        </form>
+                        <table style="width:100%">
+                            <tr>
+                                <th>Week:</th>
+                                <th>Thigh:</th>
+                                <th>Delete?</th>
+                            </tr>
+                            {% for item in resultstablethigh %}
+                            <tr>
+                                <td>{{item[0]}}</td>
+                                <td>{{item[1]}}</td>
+                                <td>
+                                    <form action="/delete_thigh" method="POST" onsubmit="return confirm('do you want to delete?')">
+                                        <input type="hidden" name="item_name" value="{{item[0]}}">
+                                        <button type="submit">delete</button>
+                                    </form>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                </body>
+            </div>
+            <div class="chartdrop chartdrop7">
+                <div class='containerTables'>
+                    <form action="/add_uarm" method="post">
+                        <h2>Enter new circumference</h2>
+                        <p> Week: 
+                            <input type="text" name='item_week'> 
+                            Measurement: 
+                            <input type="text" name='item_uarm'>
+                            <input type="submit" value="add">
+                        </p>
+                    </form>
+                    <table style="width:100%">
+                        <tr>
+                            <th>Week:</th>
+                            <th>Lower-arm:</th>
+                            <th>Delete?</th>
+                        </tr>
+                        {% for item in resultstableuarm %}
+                        <tr>
+                            <td>{{item[0]}}</td>
+                            <td>{{item[1]}}</td>
+                            <td>
+                                <form action="/delete_uarm" method="POST" onsubmit="return confirm('do you want to delete?')">
+                                    <input type="hidden" name="item_name" value="{{item[0]}}">
+                                    <button type="submit">delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+            <div class="chartdrop chartdrop8">
+                <div class='containerTables'>
+                    <form action="/add_calve" method="post">
+                        <h2>Enter new circumference</h2>
+                        <p> Week: 
+                            <input type="text" name='item_week'> 
+                            Measurement: 
+                            <input type="text" name='item_calve'>
+                            <input type="submit" value="add">
+                        </p>
+                    </form>
+                    <table style="width:100%">
+                        <tr>
+                            <th>Week:</th>
+                            <th>Calve:</th>
+                            <th>Delete?</th>
+                        </tr>
+                        {% for item in resultstablecalve %}
+                        <tr>
+                            <td>{{item[0]}}</td>
+                            <td>{{item[1]}}</td>
+                            <td>
+                                <form action="/delete_calve" method="POST" onsubmit="return confirm('do you want to delete?')">
+                                    <input type="hidden" name="item_name" value="{{item[0]}}">
+                                    <button type="submit">delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
         </section>
     </div>
 </body>

@@ -172,7 +172,22 @@ def home():                                              #                   |
     sql4 = 'SELECT Week, Calve FROM Calve' 
     cursor.execute(sql4)
     results4 = cursor.fetchall()
-    return render_template('homepage.html', data = [['Date', 'Circumference']] + results, data1 = [['Date', 'Circumference']] + results1 , data2 = [['Date', 'Circumference']] + results2 , data3 = [['Date', 'Circumference']] + results3 , data4 = [['Date', 'Circumference']] + results4 )
+    cursor = get_db().cursor()
+    sqltablebiceps = 'SELECT * FROM Biceps'
+    cursor.execute(sqltablebiceps)
+    resultstablebiceps = cursor.fetchall()
+    sqltablethigh = 'SELECT * FROM Thigh'
+    cursor.execute(sqltablethigh)
+    resultstablethigh = cursor.fetchall()
+    sqltableuarm = 'SELECT * FROM Uarm'
+    cursor.execute(sqltableuarm)
+    resultstableuarm = cursor.fetchall()
+    sqltablecalve = 'SELECT * FROM Calve'
+    cursor.execute(sqltablecalve)
+    resultstablecalve = cursor.fetchall()
+    return render_template('homepage.html', resultstablebiceps=resultstablebiceps, resultstablethigh=resultstablethigh, resultstableuarm=resultstableuarm, resultstablecalve=resultstablecalve, data = [['Date', 'Circumference']] + results, data1 = [['Date', 'Circumference']] + results1 , data2 = [['Date', 'Circumference']] + results2 , data3 = [['Date', 'Circumference']] + results3 , data4 = [['Date', 'Circumference']] + results4 )
+
+
 
 #select right table
 @app.route("/tables", methods=['GET','POST'])
@@ -193,13 +208,13 @@ def chart():
 
 #TABLE THIGH
 
-@app.route('/table_thigh')
-def table_thigh():
-    cursor = get_db().cursor()
-    sql = 'SELECT * FROM Thigh'
-    cursor.execute(sql)
-    results = cursor.fetchall()
-    return render_template('Thigh_table.html', results=results)
+# @app.route('/table_thigh')
+# def table_thigh():
+#     cursor = get_db().cursor()
+#     sql = 'SELECT * FROM Thigh'
+#     cursor.execute(sql)
+#     results = cursor.fetchall()
+#     return render_template('Thigh_table.html', results=results)
 
 #add to table(thigh)
 @app.route('/add_thigh', methods=['GET','POST'])
@@ -211,7 +226,7 @@ def add_thigh():
         sql = 'INSERT INTO Thigh(Week,Thigh) VALUES(?,?)'
         cursor.execute(sql,(new_week,new_thigh))
         get_db().commit()
-    return redirect('/table_thigh')
+    return redirect('/#Tables')
 
 #delete from table thigh
 @app.route('/delete_thigh', methods=['GET','POST'])
@@ -223,20 +238,20 @@ def delete_thigh():
         sql = "DELETE FROM Thigh WHERE Week=?"
         cursor.execute(sql,(id,))
         get_db().commit()
-    return redirect("/table_thigh")
+    return redirect("/#Tables")
 
 
 
 
 #TABLE BICEPS
 
-@app.route('/table_biceps')
-def table_biceps():
-    cursor = get_db().cursor()
-    sql = 'SELECT * FROM Biceps'
-    cursor.execute(sql)
-    results = cursor.fetchall()
-    return render_template('Biceps_table.html', results=results)
+# @app.route('/table_biceps')
+# def table_biceps():
+#     cursor = get_db().cursor()
+#     sql = 'SELECT * FROM Biceps'
+#     cursor.execute(sql)
+#     results = cursor.fetchall()
+#     return render_template('Biceps_table.html', results=results)
 
 #add to table biceps
 @app.route('/add_biceps', methods=['GET','POST'])
@@ -248,7 +263,7 @@ def add_biceps():
         sql = 'INSERT INTO Biceps(Week,Biceps) VALUES(?,?)'
         cursor.execute(sql,(new_week,new_biceps))
         get_db().commit()
-    return redirect('/table_biceps')
+    return redirect('/#Tables')
 
 #delete from table biceps
 @app.route('/delete_biceps', methods=['GET','POST'])
@@ -260,20 +275,20 @@ def delete_biceps():
         sql = "DELETE FROM Biceps WHERE Week=?"
         cursor.execute(sql,(id,))
         get_db().commit()
-    return redirect("/table_biceps")
+    return redirect('/#Tables')
 
 
 
 
 #TABLE UARM
 
-@app.route('/table_uarm')
-def table_uarm():
-    cursor = get_db().cursor()
-    sql = 'SELECT * FROM Uarm'
-    cursor.execute(sql)
-    results = cursor.fetchall()
-    return render_template('Uarm_table.html', results=results)
+# @app.route('/table_uarm')
+# def table_uarm():
+#     cursor = get_db().cursor()
+#     sql = 'SELECT * FROM Uarm'
+#     cursor.execute(sql)
+#     results = cursor.fetchall()
+#     return render_template('Uarm_table.html', results=results)
 
 #add to table uram
 @app.route('/add_uarm', methods=['GET','POST'])
@@ -285,7 +300,7 @@ def add_uarm():
         sql = 'INSERT INTO Uarm(Week,Uarm) VALUES(?,?)'
         cursor.execute(sql,(new_week,new_uarm))
         get_db().commit()
-    return redirect('/table_uarm')
+    return redirect('/#Tables')
 
 #delete from table uram
 @app.route('/delete_uarm', methods=['GET','POST'])
@@ -297,17 +312,17 @@ def delete_uarm():
         sql = "DELETE FROM Uarm WHERE Week=?"
         cursor.execute(sql,(id,))
         get_db().commit()
-    return redirect("/table_uarm")
+    return redirect("/#Tables")
 
 #TABLE Calve
 
-@app.route('/table_calve')
-def table_calve():
-    cursor = get_db().cursor()
-    sql = 'SELECT * FROM Calve'
-    cursor.execute(sql)
-    results = cursor.fetchall()
-    return render_template('calve_table.html', results=results)
+# @app.route('/table_calve')
+# def table_calve():
+#     cursor = get_db().cursor()
+#     sql = 'SELECT * FROM Calve'
+#     cursor.execute(sql)
+#     results = cursor.fetchall()
+#     return render_template('calve_table.html', results=results)
 
 #add to calve(calve)
 @app.route('/add_calve', methods=['GET','POST'])
@@ -319,7 +334,7 @@ def add_calve():
         sql = 'INSERT INTO Calve(Week,Calve) VALUES(?,?)'
         cursor.execute(sql,(new_week,new_calve))
         get_db().commit()
-    return redirect('/table_calve')
+    return redirect('/#Tables')
 
 #delete from table calve
 @app.route('/delete_calve', methods=['GET','POST'])
@@ -331,7 +346,7 @@ def delete_calve():
         sql = "DELETE FROM Calve WHERE Week=?"
         cursor.execute(sql,(id,))
         get_db().commit()
-    return redirect("/table_calve")
+    return redirect("/#Tables")
 
 
 
