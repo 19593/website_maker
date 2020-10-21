@@ -7,6 +7,9 @@
         google.charts.load('current', {packages: ['corechart', 'line']});
         google.charts.setOnLoadCallback(drawAverage);
         google.charts.setOnLoadCallback(drawBiceps);
+        google.charts.setOnLoadCallback(drawCalve);
+        google.charts.setOnLoadCallback(drawThigh);
+        google.charts.setOnLoadCallback(drawLowerArm);
 
 
         // DRAW AVERAGE ------------------------------------------------------------------------------------------------------------
@@ -55,7 +58,6 @@
         // DRAW BICEPS ------------------------------------------------------------------------------------------------------------
 
         function drawBiceps() {
-            console.log('abc');
             //adding values
             var data1 = google.visualization.arrayToDataTable(
                 {{ data1|tojson }} 
@@ -91,6 +93,137 @@
             };
 
             var chart1 = new google.visualization.LineChart(document.getElementById('Biceps_Chart'));
+            chart1.draw(data1,options);
+        }
+
+
+
+
+        // DRAW THIGH ------------------------------------------------------------------------------------------------------------
+
+        function drawThigh() {
+            //adding values
+            var data1 = google.visualization.arrayToDataTable(
+                {{ data2|tojson }} 
+            );
+            //defining table
+            var options = {
+                title: 'Thigh development',
+                hAxis: {
+                    title: 'Week',
+                    logScale: false,
+                    gridlines: {color: '#09fffd'}
+                },
+                vAxis: {
+                    title: 'Thigh Measurements (cm)',
+                    logScale: false,
+                    gridlines: {color: '#09fffd'}
+                },
+                legend: { 
+                    position: 'bottom' 
+                },
+                chartArea: {
+                    backgroundColor: {
+                        stroke: '#000000',
+                        strokeWidth: 2,
+                        fill: 'white',
+                        fillOpacity: 1
+                    },
+                },
+                backgroundColor: {
+                    fill: 'bright_blue',
+                    fillOpacity: 0
+                },
+            };
+
+            var chart1 = new google.visualization.LineChart(document.getElementById('Thigh_Chart'));
+            chart1.draw(data1,options);
+        }
+
+
+
+
+        // DRAW LOWER-ARM ------------------------------------------------------------------------------------------------------------
+
+        function drawLowerArm() {
+            //adding values
+            var data1 = google.visualization.arrayToDataTable(
+                {{ data3|tojson }}
+            );
+            //defining table
+            var options = {
+                title: 'LowerArm development',
+                hAxis: {
+                    title: 'Week',
+                    logScale: false,
+                    gridlines: {color: '#09fffd'}
+                },
+                vAxis: {
+                    title: 'LowerArm Measurements (cm)',
+                    logScale: false,
+                    gridlines: {color: '#09fffd'}
+                },
+                legend: { 
+                    position: 'bottom' 
+                },
+                chartArea: {
+                    backgroundColor: {
+                        stroke: '#000000',
+                        strokeWidth: 2,
+                        fill: 'white',
+                        fillOpacity: 1
+                    },
+                },
+                backgroundColor: {
+                    fill: 'bright_blue',
+                    fillOpacity: 0
+                },
+            };
+
+            var chart1 = new google.visualization.LineChart(document.getElementById('LowerArm_Chart'));
+            chart1.draw(data1,options);
+        }
+
+
+
+        // DRAW CALVE ------------------------------------------------------------------------------------------------------------
+
+        function drawCalve() {
+            //adding values
+            var data1 = google.visualization.arrayToDataTable(
+                {{ data4|tojson }} 
+            );
+            //defining table
+            var options = {
+                title: 'Calve development',
+                hAxis: {
+                    title: 'Week',
+                    logScale: false,
+                    gridlines: {color: '#09fffd'}
+                },
+                vAxis: {
+                    title: 'Calve Measurements (cm)',
+                    logScale: false,
+                    gridlines: {color: '#09fffd'}
+                },
+                legend: { 
+                    position: 'bottom' 
+                },
+                chartArea: {
+                    backgroundColor: {
+                        stroke: '#000000',
+                        strokeWidth: 2,
+                        fill: 'white',
+                        fillOpacity: 1
+                    },
+                },
+                backgroundColor: {
+                    fill: 'bright_blue',
+                    fillOpacity: 0
+                },
+            };
+
+            var chart1 = new google.visualization.LineChart(document.getElementById('Calve_Chart'));
             chart1.draw(data1,options);
         }
     </script>
@@ -202,19 +335,19 @@
                 </body>
             </div>
             <div class="chartdrop chartdrop2">
-                <form action="/go_to_graph_thigh" method="post">
-                    <input type="submit" value="Thigh">
-                </form>
+                <body>
+                    <div id="Thigh_Chart" style='width: 100%; height: 100%;'></div>  
+                </body>
             </div>
             <div class="chartdrop chartdrop3">
-                <form action="/go_to_graph_uarm" method="post">
-                    <input type="submit" value="Lower-Arm">
-                </form>
+                <body>
+                    <div id="LowerArm_Chart" style='width: 100%; height: 100%;'></div>  
+                </body>
             </div>
             <div class="chartdrop chartdrop4">
-                <form action="/go_to_graph_calve" method="post">
-                    <input type="submit" value="Calve">
-                </form>
+                <body>
+                    <div id="Calve_Chart" style='width: 100%; height: 100%;'></div>  
+                </body>
             </div>
             <script>
                 function toggle_chart(target) {
@@ -224,9 +357,9 @@
                     });
                     document.querySelector(target).classList.add('show');
                     if (target == '.chartdrop1') drawBiceps();
-                    // if (target == '.chartdrop2') drawBiceps();
-                    // if (target == '.chartdrop3') drawBiceps();
-                    // if (target == '.chartdrop4') drawBiceps();
+                    if (target == '.chartdrop2') drawThigh();
+                    if (target == '.chartdrop3') drawLowerArm();
+                    if (target == '.chartdrop4') drawCalve();
                 }
             </script>
         </section>

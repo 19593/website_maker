@@ -163,7 +163,16 @@ def home():                                              #                   |
     sql1 = 'SELECT Week, Biceps FROM Biceps' 
     cursor.execute(sql1)
     results1 = cursor.fetchall()
-    return render_template('homepage.html', data = [['Date', 'Circumference']] + results, data1 = [['Date', 'Circumference']] + results1 )
+    sql2 = 'SELECT Week, Thigh FROM Thigh' 
+    cursor.execute(sql2)
+    results2 = cursor.fetchall()
+    sql3 = 'SELECT Week, Uarm FROM Uarm' 
+    cursor.execute(sql3) 
+    results3 = cursor.fetchall()
+    sql4 = 'SELECT Week, Calve FROM Calve' 
+    cursor.execute(sql4)
+    results4 = cursor.fetchall()
+    return render_template('homepage.html', data = [['Date', 'Circumference']] + results, data1 = [['Date', 'Circumference']] + results1 , data2 = [['Date', 'Circumference']] + results2 , data3 = [['Date', 'Circumference']] + results3 , data4 = [['Date', 'Circumference']] + results4 )
 
 #select right table
 @app.route("/tables", methods=['GET','POST'])
