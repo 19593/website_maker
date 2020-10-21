@@ -55,6 +55,7 @@
         // DRAW BICEPS ------------------------------------------------------------------------------------------------------------
 
         function drawBiceps() {
+            console.log('abc');
             //adding values
             var data1 = google.visualization.arrayToDataTable(
                 {{ data1|tojson }} 
@@ -189,7 +190,7 @@
         <section id='Categories'>
             <div class="DropChart">
                 <ul>
-                    <li class="a"><a onclick="toggle_chart('.chartdrop1')">Biceps</a></li>
+                <li class="a"><a onclick="toggle_chart('.chartdrop1')">Biceps</a></li>
                     <li class="b"><a onclick="toggle_chart('.chartdrop2')">Thigh</a></li>
                     <li class="c"><a onclick="toggle_chart('.chartdrop3')">Lower-arm</a></li>
                     <li class="d"><a onclick="toggle_chart('.chartdrop4')">Calve</a></li>
@@ -217,10 +218,15 @@
             </div>
             <script>
                 function toggle_chart(target) {
+                    
                     document.querySelectorAll('.chartdrop').forEach(element => {
                         element.classList.remove('show');
                     });
-                    document.querySelector(target).classList.add('show')
+                    document.querySelector(target).classList.add('show');
+                    if (target == '.chartdrop1') drawBiceps();
+                    // if (target == '.chartdrop2') drawBiceps();
+                    // if (target == '.chartdrop3') drawBiceps();
+                    // if (target == '.chartdrop4') drawBiceps();
                 }
             </script>
         </section>
