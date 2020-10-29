@@ -235,12 +235,12 @@
 </head>
 
 <body>
-    <!-- BackgroundImage -->
+    <!-- BackgroundImage -------------------------------------------------------------------------------------------------------------->
     <div id='image'>
         <img src="../static/img/gym-test.jpg">
     </div>
 
-    <!-- SideBar -->
+    <!-- SideBar -------------------------------------------------------------------------------------------------------------->
     <div id='sidebar'>
         <ul>
             <li class='logo' style='height: 101px'>
@@ -275,7 +275,7 @@
 
 
 
-    <!-- SECTIONS -->
+    <!-- SECTIONS -------------------------------------------------------------------------------------------------------------->
     <div class="container">
 
 
@@ -283,7 +283,7 @@
 
 
 
-        <!-- HERE IS          HOME          IS HERE -->
+        <!-- HERE IS          HOME          IS HERE -------------------------------------------------------------------------------------------------------------->
         <section id='Home', class="child">
             <body>
                 <!-- Arrow -->
@@ -297,10 +297,12 @@
 
 
 
-        <!-- HERE IS     MEASUREMENTDEVICE     IS HERE -->
+        <!-- HERE IS     MEASUREMENTDEVICE     IS HERE -------------------------------------------------------------------------------------------------------------->
         <section id='MeasurementDevice', class="child">
             <body>
                 <h1>Buy the ultimate Measuring Device, easy to use with one hand!!!</h1>
+                <h3>Link to shop:</h3>
+                <div class='Device'><a href='/BuyDevice' >Click Here</a></div>
             </body>
         </section>
 
@@ -308,7 +310,7 @@
 
 
 
-        <!-- HERE IS        BODYAVERAGE        IS HERE -->
+        <!-- HERE IS        BODYAVERAGE        IS HERE -------------------------------------------------------------------------------------------------------------->
         <section id='BodyAverage', class="child">
             <body>
                 <div id="Average_Chart" style='width: 100%; height: 100%;'></div>  <!-- WORK ON -->
@@ -319,14 +321,14 @@
 
 
 
-        <!-- HERE IS         CATEGORIES        IS HERE -->
+        <!-- HERE IS         CATEGORIES        IS HERE -------------------------------------------------------------------------------------------------------------->
         <section id='Categories', class="child">
             <div class="DropChart">
                 <ul>
-                    <li class="a"><a onclick="toggle_chart('.chartdrop1')">Biceps</a></li>
-                    <li class="b"><a onclick="toggle_chart('.chartdrop2')">Thigh</a></li>
-                    <li class="c"><a onclick="toggle_chart('.chartdrop3')">Lower-arm</a></li>
-                    <li class="d"><a onclick="toggle_chart('.chartdrop4')">Calve</a></li>
+                    <a onclick="toggle_chart('.chartdrop1')"><li class="a">Biceps</li></a>
+                    <a onclick="toggle_chart('.chartdrop2')"><li class="b">Thigh</li></a>
+                    <a onclick="toggle_chart('.chartdrop3')"><li class="c">Lower-arm</li></a>
+                    <a onclick="toggle_chart('.chartdrop4')"><li class="d">Calve</li></a>
                 </ul>
             </div>
             <div class="chartdrop chartdrop1">
@@ -368,16 +370,17 @@
 
 
 
-        <!-- HERE IS          TABLES         IS HERE -->
+        <!-- HERE IS          TABLES         IS HERE -------------------------------------------------------------------------------------------------------------->
         <section id='Tables', class="child">
             <div class="DropChart">
                 <ul>
-                    <li class="a"><a onclick="toggle_chart('.chartdrop5')">Biceps</a></li>
-                    <li class="b"><a onclick="toggle_chart('.chartdrop6')">Thigh</a></li>
-                    <li class="c"><a onclick="toggle_chart('.chartdrop7')">Lower-arm</a></li>
-                    <li class="d"><a onclick="toggle_chart('.chartdrop8')">Calve</a></li>
+                    <a onclick="toggle_chart('.chartdrop5')"><li class="a">Biceps</li></li></a>
+                    <a onclick="toggle_chart('.chartdrop6')"><li class="b">Thigh</li></a>
+                    <a onclick="toggle_chart('.chartdrop7')"><li class="b">Lower-arm</li></a>
+                    <a onclick="toggle_chart('.chartdrop8')"><li class="b">Calve</li></a>
                 </ul>
             </div>
+            <!-- Biceps Table -------------------------------------------------------------------------------------------------------------->
             <div class="chartdrop chartdrop5">
                 <body>
                     <div class='containerTables'>
@@ -412,6 +415,7 @@
                     </div>
                 </body>
             </div>
+            <!-- Thigh Table -------------------------------------------------------------------------------------------------------------->
             <div class="chartdrop chartdrop6">
                 <body>
                     <div class='containerTables'>
@@ -446,6 +450,7 @@
                     </div>
                 </body>
             </div>
+            <!-- Lower Arm table -------------------------------------------------------------------------------------------------------------->
             <div class="chartdrop chartdrop7">
                 <div class='containerTables'>
                     <form action="/add_uarm" method="post">
@@ -478,6 +483,7 @@
                     </table>
                 </div>
             </div>
+            <!-- Calve Table -------------------------------------------------------------------------------------------------------------->
             <div class="chartdrop chartdrop8">
                 <div class='containerTables'>
                     <form action="/add_calve" method="post">

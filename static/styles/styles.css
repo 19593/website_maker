@@ -1,51 +1,51 @@
 table {
-    font-family: arial, sans-serif;
-    border-collapse: collapse;
-    width: 100%;
-  }
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
   
-  td, th {
-    border: 1px solid #554f4f;
-    text-align: left;
-    padding: 8px;
-  }
-  
-  tr:nth-child(even) {
-    background-color: #a4bdff;
-  }
+td, th {
+  border: 1px solid #554f4f;
+  text-align: left;
+  padding: 8px;
+}
 
-  tr:nth-child(odd) {
-    background-color: #8ed1fd;
-  }
-  
+tr:nth-child(even) {
+  background-color: #a4bdff;
+}
+
+tr:nth-child(odd) {
+  background-color: #8ed1fd;
+}
+
 *{
-    margin:0px;
-    padding:0px;
-    box-sizing: border-box;
-    text-decoration: none;
-    font-family:'Rockwell';
-    scroll-behavior: smooth;
+  margin:0px;
+  padding:0px;
+  box-sizing: border-box;
+  text-decoration: none;
+  font-family:'Rockwell';
+  scroll-behavior: smooth;
 }
 
 #sidebar {
-    position:fixed;
-    width:220px;
-    height:100%;
-    background:rgb(35, 209, 171);
+  position:fixed;
+  width:220px;
+  height:100%;
+  background:rgb(35, 209, 171);
 }
 
 #sidebar ul li {
-    color:rgb(239, 248, 230);
-    list-style:none;
-    padding:15px 30px;
-    border-bottom:1px solid rgba(100,100,100,0.3);
+  color:rgb(239, 248, 230);
+  list-style:none;
+  padding:15px 30px;
+  border-bottom:1px solid rgba(100,100,100,0.3);
 
 }
 #sidebar ul ol {
-    color:rgb(50, 51, 49);
-    list-style:none;
-    padding:15px 15px;
-    border-bottom:1px solid rgba(100,100,100,0.3);
+  color:rgb(50, 51, 49);
+  list-style:none;
+  padding:15px 15px;
+  border-bottom:1px solid rgba(100,100,100,0.3);
 }
 #sidebar ul li a {
   color: #fdfcfc;
@@ -99,6 +99,11 @@ body
   width: 100%;
 }
 
+.Device {
+  bottom: 50%;
+  right: 50%;
+}
+
 .container_100vh{
   width: 100%;
   padding-left: 220px;
@@ -141,6 +146,7 @@ section h1 {
 section p {
   font-size: 1.5rem;
 }
+
 
 
 section#MeasurementDevice {
@@ -255,6 +261,7 @@ p a{
 
 .DropChart {
   background:rgb(35, 125, 209);
+  display: block;
 }
 
 .DropChart ul {
@@ -266,8 +273,10 @@ p a{
   list-style: none;
   width: 24.75%;
   color: #fff;
-  padding: 20px;
+  padding: 20px 20px;
   font-size: 38.5px;
+  border-right:1px solid rgba(0, 0, 0, 0.589);
+  text-align: center;
 }
 
 .DropChart ul li.b {
@@ -275,8 +284,11 @@ p a{
   list-style: none;
   width: 24.75%;
   color: #fff;
-  padding: 20px;
+  padding: 20px 20px;
   font-size: 38.5px;
+  border-right:1px solid rgba(0, 0, 0, 0.589);
+  border-left: 1px solid rgba(0, 0, 0, 0.589);
+  text-align: center;
 }
 
 .DropChart ul li.c {
@@ -284,8 +296,11 @@ p a{
   list-style: none;
   width: 24.75%;
   color: #fff;
-  padding: 20px;
+  padding: 20px 20px;
   font-size: 38.5px;
+  border-right:1px solid rgba(0, 0, 0, 0.589);
+  border-left: 1px solid rgba(0, 0, 0, 0.589);
+  text-align: center;
 }
 
 .DropChart ul li.d {
@@ -293,14 +308,27 @@ p a{
   list-style: none;
   width: 24.75%;
   color: #fff;
-  padding: 20px;
+  padding: 20px 20px;
   font-size: 38.5px;
+  border-left: 1px solid rgba(0, 0, 0, 0.589);
 }
-
 
 .DropChart ul li:hover {
   background: rgb(53, 215, 255);
 }
+
+.DropChart ul li a {
+  color: rgb(204, 235, 255);
+}
+
+.DropChart ul li a:hover {
+  color: #666b6d;
+}
+
+.DropChart ul li a:active {
+  color: rgb(63, 0, 163)
+}
+
 
 .chartdrop {
   display: none;
@@ -310,15 +338,4 @@ p a{
 .chartdrop.show {
   display: block;
 
-}
-a {
-  color: white;
-}
-
-a:hover {
-  color: #a9ffe2;
-}
-
-a:active {
-  color: rgb(63, 0, 163)
 }
