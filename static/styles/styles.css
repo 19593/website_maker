@@ -92,7 +92,7 @@ body
   width: fit-content;
   position: fixed;
   margin-left: 220px;
-  z-index: -10;
+  z-index: -1;
 }
 
 #image img{
@@ -146,8 +146,11 @@ section h1 {
 section p {
   font-size: 1.5rem;
 }
-
-
+/* 
+section#Home {
+  background: rgb(182, 238, 255);
+  z-index: -20;
+} */
 
 section#MeasurementDevice {
   background: rgb(0, 255, 200);
@@ -169,7 +172,17 @@ section#Tables {
   z-index: 2;
 }
 
-
+.backgroundcolour {
+  content: '';
+  width: 0px;
+  height: 0px;
+  position: absolute;
+  margin: auto;
+  border-right: 2000px solid rgb(141, 228, 255);
+  border-bottom: 1000px solid rgb(141, 228, 255);
+  top: 0px;
+  z-index: -2;
+}
 
 /* animated arrow */
 
@@ -321,12 +334,12 @@ p a{
   color: rgb(204, 235, 255);
 }
 
-.DropChart ul li a:hover {
-  color: #666b6d;
+.DropChart ul li:hover {
+  color: #ceffe4;
 }
 
-.DropChart ul li a:active {
-  color: rgb(63, 0, 163)
+.DropChart ul li:active {
+  color: rgb(31, 32, 87)
 }
 
 
@@ -338,4 +351,10 @@ p a{
 .chartdrop.show {
   display: block;
 
+}
+
+.flashes {
+  top: 0px;
+  right: 0px;
+  font-size: 100px;
 }

@@ -1,4 +1,4 @@
-from flask import Flask,g,render_template,request,redirect
+from flask import Flask,g,render_template,request,redirect, flash
 import datetime
 import sqlite3
 
@@ -260,10 +260,19 @@ def add_biceps():
         cursor = get_db().cursor()
         new_biceps = request.form['item_biceps']
         new_week = request.form['item_week']
-        sql = 'INSERT INTO Biceps(Week,Biceps) VALUES(?,?)'
-        cursor.execute(sql,(new_week,new_biceps))
-        get_db().commit()
-    return redirect('/#Tables')
+        if new_biceps.isdigit() & new_week.isdigit():
+            sql = 'SELECT Week from Biceps WHERE Week = ?'
+            cursor.execute(sql,(new_week,))
+            results = cursor.fetchall()
+            if len(results) == 0:
+                cursor = get_db().cursor()
+                sql = 'INSERT INTO Biceps(Week,Biceps) VALUES(?,?)'
+                cursor.execute(sql,(new_week,new_biceps))
+                get_db().commit()
+                return redirect('/#Tables')  
+        else:
+            flash('An error has accured, try again!')
+        return redirect('/#Tables')
 
 #delete from table biceps
 @app.route('/delete_biceps', methods=['GET','POST'])
@@ -349,8 +358,9 @@ def delete_calve():
     return redirect("/#Tables")
 
 
-
-
+@app.route('/BuyDevice')
+def BuyDevice():
+    return render_template('BuyDevice.html')
 
 if __name__== '__main__':
     app.run(debug=True)

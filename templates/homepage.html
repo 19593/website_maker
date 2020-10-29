@@ -238,6 +238,7 @@
     <!-- BackgroundImage -------------------------------------------------------------------------------------------------------------->
     <div id='image'>
         <img src="../static/img/gym-test.jpg">
+        <div class="backgroundcolour"></div>
     </div>
 
     <!-- SideBar -------------------------------------------------------------------------------------------------------------->
@@ -277,11 +278,7 @@
 
     <!-- SECTIONS -------------------------------------------------------------------------------------------------------------->
     <div class="container">
-
-
-
-
-
+        
 
         <!-- HERE IS          HOME          IS HERE -------------------------------------------------------------------------------------------------------------->
         <section id='Home', class="child">
@@ -301,7 +298,7 @@
         <section id='MeasurementDevice', class="child">
             <body>
                 <h1>Buy the ultimate Measuring Device, easy to use with one hand!!!</h1>
-                <h3>Link to shop:</h3>
+                <h3>Link to the shop:</h3>
                 <div class='Device'><a href='/BuyDevice' >Click Here</a></div>
             </body>
         </section>
@@ -325,10 +322,10 @@
         <section id='Categories', class="child">
             <div class="DropChart">
                 <ul>
-                    <a onclick="toggle_chart('.chartdrop1')"><li class="a">Biceps</li></a>
-                    <a onclick="toggle_chart('.chartdrop2')"><li class="b">Thigh</li></a>
+                    <a onclick="toggle_chart('.chartdrop1')"><li class="a">  Biceps</li></a>
+                    <a onclick="toggle_chart('.chartdrop2')"><li class="b">  Thigh</li></a>
                     <a onclick="toggle_chart('.chartdrop3')"><li class="c">Lower-arm</li></a>
-                    <a onclick="toggle_chart('.chartdrop4')"><li class="d">Calve</li></a>
+                    <a onclick="toggle_chart('.chartdrop4')"><li class="d">  Calve</li></a>
                 </ul>
             </div>
             <div class="chartdrop chartdrop1">
@@ -370,7 +367,7 @@
 
 
 
-        <!-- HERE IS          TABLES         IS HERE -------------------------------------------------------------------------------------------------------------->
+        <!-- HERE IS          TABLES         IS HERE ------------------------------------------------------------------------------------------------------------ -->
         <section id='Tables', class="child">
             <div class="DropChart">
                 <ul>
@@ -380,7 +377,7 @@
                     <a onclick="toggle_chart('.chartdrop8')"><li class="b">Calve</li></a>
                 </ul>
             </div>
-            <!-- Biceps Table -------------------------------------------------------------------------------------------------------------->
+            <!-- Biceps Table ------------------------------------------------------------------------------------------------------------------------------------ -->
             <div class="chartdrop chartdrop5">
                 <body>
                     <div class='containerTables'>
@@ -391,6 +388,16 @@
                                 Measurement: 
                                 <input type="text" name='item_biceps'>
                                 <input type="submit" value="add">
+                                {% with messages = get_flashed_messages() %}
+                                    {% if messages %}
+                                        <ul class=flashes>
+                                            {% for message in messages %}
+                                                <li>{{ message }}</li>
+                                            {% endfor %}
+                                        </ul>
+                                    {% endif %}
+                                {% endwith %}
+                                {% block body %}{% endblock %}
                             </p>
                         </form>
                         <table style="width:100%">
@@ -415,7 +422,7 @@
                     </div>
                 </body>
             </div>
-            <!-- Thigh Table -------------------------------------------------------------------------------------------------------------->
+            <!-- Thigh Table ------------------------------------------------------------------------------------------------------------ -->
             <div class="chartdrop chartdrop6">
                 <body>
                     <div class='containerTables'>
