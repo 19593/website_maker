@@ -4,7 +4,7 @@ import sqlite3
 
 
 app = Flask(__name__)
-
+app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 
 DATABASE = 'Improve.db'
 
@@ -223,10 +223,23 @@ def add_thigh():
         cursor = get_db().cursor()
         new_thigh = request.form['item_thigh']
         new_week = request.form['item_week']
-        sql = 'INSERT INTO Thigh(Week,Thigh) VALUES(?,?)'
-        cursor.execute(sql,(new_week,new_thigh))
-        get_db().commit()
-    return redirect('/#Tables')
+        if new_thigh.isdigit() & new_week.isdigit():
+            sql = 'SELECT Week from Thigh WHERE Week = ?'
+            cursor.execute(sql,(new_week,))
+            results = cursor.fetchall()
+            if len(results) == 0:
+                if new_week > 0:
+                    cursor = get_db().cursor()
+                    sql = 'INSERT INTO Thigh(Week,Thigh) VALUES(?,?)'
+                    cursor.execute(sql,(new_week,new_thigh,))
+                    get_db().commit()
+                    return redirect('/#Tables')  
+            if len(results) == 1:
+                flash('An error has accured, try again!')
+                return redirect('/#Tables') 
+        else:
+            flash('An error has accured, try again!')
+        return redirect('/#Tables') 
 
 #delete from table thigh
 @app.route('/delete_thigh', methods=['GET','POST'])
@@ -265,14 +278,18 @@ def add_biceps():
             cursor.execute(sql,(new_week,))
             results = cursor.fetchall()
             if len(results) == 0:
-                cursor = get_db().cursor()
-                sql = 'INSERT INTO Biceps(Week,Biceps) VALUES(?,?)'
-                cursor.execute(sql,(new_week,new_biceps))
-                get_db().commit()
+                if new_week > 0:
+                    cursor = get_db().cursor()
+                    sql = 'INSERT INTO Biceps(Week,Biceps) VALUES(?,?)'
+                    cursor.execute(sql,(new_week,new_biceps))
+                    get_db().commit()
                 return redirect('/#Tables')  
+            if len(results) == 1:
+                flash('An error has accured, try again!')
+            return redirect('/#Tables') 
         else:
             flash('An error has accured, try again!')
-        return redirect('/#Tables')
+        return redirect('/#Tables') 
 
 #delete from table biceps
 @app.route('/delete_biceps', methods=['GET','POST'])
@@ -306,10 +323,23 @@ def add_uarm():
         cursor = get_db().cursor()
         new_uarm = request.form['item_uarm']
         new_week = request.form['item_week']
-        sql = 'INSERT INTO Uarm(Week,Uarm) VALUES(?,?)'
-        cursor.execute(sql,(new_week,new_uarm))
-        get_db().commit()
-    return redirect('/#Tables')
+        if new_uarm.isdigit() & new_week.isdigit():
+            sql = 'SELECT Week from Uarm WHERE Week = ?'
+            cursor.execute(sql,(new_week,))
+            results = cursor.fetchall()
+            if len(results) == 0:
+                if new_week > 0:
+                    cursor = get_db().cursor()
+                    sql = 'INSERT INTO Uarm(Week,Uarm) VALUES(?,?)'
+                    cursor.execute(sql,(new_week,new_uarm,))
+                    get_db().commit()
+                    return redirect('/#Tables')  
+            if len(results) == 1:
+                flash('An error has accured, try again!')
+                return redirect('/#Tables') 
+        else:
+            flash('An error has accured, try again!')
+        return redirect('/#Tables') 
 
 #delete from table uram
 @app.route('/delete_uarm', methods=['GET','POST'])
@@ -340,10 +370,23 @@ def add_calve():
         cursor = get_db().cursor()
         new_calve = request.form['item_calve']
         new_week = request.form['item_week']
-        sql = 'INSERT INTO Calve(Week,Calve) VALUES(?,?)'
-        cursor.execute(sql,(new_week,new_calve))
-        get_db().commit()
-    return redirect('/#Tables')
+        if new_calve.isdigit() & new_week.isdigit():
+            sql = 'SELECT Week from Calve WHERE Week = ?'
+            cursor.execute(sql,(new_week,))
+            results = cursor.fetchall()
+            if len(results) == 0:
+                if new_week > 0:
+                    cursor = get_db().cursor()
+                    sql = 'INSERT INTO Calve(Week,Calve) VALUES(?,?)'
+                    cursor.execute(sql,(new_week,new_calve,))
+                    get_db().commit()
+                    return redirect('/#Tables')  
+            if len(results) == 1:
+                flash('An error has accured, try again!')
+                return redirect('/#Tables') 
+        else:
+            flash('An error has accured, try again!')
+        return redirect('/#Tables') 
 
 #delete from table calve
 @app.route('/delete_calve', methods=['GET','POST'])

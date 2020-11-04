@@ -369,6 +369,16 @@
 
         <!-- HERE IS          TABLES         IS HERE ------------------------------------------------------------------------------------------------------------ -->
         <section id='Tables', class="child">
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <ul class=flashes>
+                        {% for message in messages %}
+                            <li>{{ message }}<a onclick="window.location.reload()"> Reload Page</a></li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            {% endwith %}
+            {% block body %}{% endblock %}
             <div class="DropChart">
                 <ul>
                     <a onclick="toggle_chart('.chartdrop5')"><li class="a">Biceps</li></li></a>
@@ -388,16 +398,6 @@
                                 Measurement: 
                                 <input type="text" name='item_biceps'>
                                 <input type="submit" value="add">
-                                {% with messages = get_flashed_messages() %}
-                                    {% if messages %}
-                                        <ul class=flashes>
-                                            {% for message in messages %}
-                                                <li>{{ message }}</li>
-                                            {% endfor %}
-                                        </ul>
-                                    {% endif %}
-                                {% endwith %}
-                                {% block body %}{% endblock %}
                             </p>
                         </form>
                         <table style="width:100%">

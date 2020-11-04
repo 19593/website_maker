@@ -129,6 +129,7 @@ body
   width: 100%;
   overflow-y: scroll;
   scroll-behavior: smooth;
+  position: relative;
 }
 
 
@@ -146,11 +147,6 @@ section h1 {
 section p {
   font-size: 1.5rem;
 }
-/* 
-section#Home {
-  background: rgb(182, 238, 255);
-  z-index: -20;
-} */
 
 section#MeasurementDevice {
   background: rgb(0, 255, 200);
@@ -354,7 +350,25 @@ p a{
 }
 
 .flashes {
-  top: 0px;
-  right: 0px;
-  font-size: 100px;
+  top: 30px;
+  right: 30px;
+  left: 250px;
+  font-size: 50px;
+  padding: 10px;
+  list-style: none;
+  position: absolute;
+  z-index: 11;
+  background-color: #de5505;
+  
+}
+
+.child ul li a:hover{
+  color: #de5505;
+  background-color: #109e8b;
+}
+
+.child ul li a{
+  color: #109e8b;
+  background-color: #de5505;
+  padding: 4px;
 }
