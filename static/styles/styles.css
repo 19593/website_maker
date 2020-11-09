@@ -443,14 +443,21 @@ p a{
 }
 
 .register_page pre input{
-  width: 20%;
+  width: 50%;
   padding: 15px 20px;
   margin: 8px 0;
   box-sizing: border-box;
   font-size: 20px;
 }
 
-.create_submit{
+.register_page pre input:hover{
+  background-color: rgb(208, 255, 196);
+  border-color: black;
+  border-radius: 3px;
+}
+
+.register_page pre p input{
+  width: 20%;
   background-color: #4CAF50; /* Green */
   border: none;
   padding: 15px 32px;
@@ -462,9 +469,31 @@ p a{
   font-size: 20px;
 }
 
-
-
-.create_submit:hover{
+.register_page pre p input:hover{
   background-color: #57f171;
+  border-radius: 7px;
+  cursor: pointer;
+}
 
+.register_page ul li a{
+  color: rgb(30, 255, 0);
+  cursor: pointer;
+}
+
+.register_page ul li a:hover{
+  color:  rgb(5, 136, 0);
+  cursor: pointer;
+}
+
+.register_page p a{
+  color: rgb(255, 255, 255);
+  border-radius: 60px;
+  padding: 22px 4px;
+  border: none;
+  background-color: cadetblue;
+}
+
+.register_page p a:hover{
+  color: red;
+  background-color: blue;
 }

@@ -14,11 +14,17 @@ DATABASE = 'Improve.db'
 
 #get_db
 
+
+
 def get_db():
     db = getattr(g, '_database', None)
     if db is None:
         db = g._database = sqlite3.connect(DATABASE)
     return db
+
+#def hasNumbers for checking if inputs have digits in them or not
+def hasNumbers(inputString):
+    return any(char.isdigit() for char in inputString)
 
 
 
@@ -166,7 +172,7 @@ def loginn():
 @app.route('/login/register', methods=['GET','POST'])
 def register():
     return render_template('register.html')
-    
+
 #redirections
 
 
@@ -228,14 +234,6 @@ def chart():
 
 #TABLE THIGH
 
-# @app.route('/table_thigh')
-# def table_thigh():
-#     cursor = get_db().cursor()
-#     sql = 'SELECT * FROM Thigh'
-#     cursor.execute(sql)
-#     results = cursor.fetchall()
-#     return render_template('Thigh_table.html', results=results)
-
 #add to table(thigh)
 @app.route('/add_thigh', methods=['GET','POST'])
 def add_thigh():
@@ -277,14 +275,6 @@ def delete_thigh():
 
 
 #TABLE BICEPS
-
-# @app.route('/table_biceps')
-# def table_biceps():
-#     cursor = get_db().cursor()
-#     sql = 'SELECT * FROM Biceps'
-#     cursor.execute(sql)
-#     results = cursor.fetchall()
-#     return render_template('Biceps_table.html', results=results)
 
 #add to table biceps
 @app.route('/add_biceps', methods=['GET','POST'])
@@ -330,14 +320,6 @@ def delete_biceps():
 
 #TABLE UARM
 
-# @app.route('/table_uarm')
-# def table_uarm():
-#     cursor = get_db().cursor()
-#     sql = 'SELECT * FROM Uarm'
-#     cursor.execute(sql)
-#     results = cursor.fetchall()
-#     return render_template('Uarm_table.html', results=results)
-
 #add to table uram
 @app.route('/add_uarm', methods=['GET','POST'])
 def add_uarm():
@@ -377,14 +359,6 @@ def delete_uarm():
 
 #TABLE Calve
 
-# @app.route('/table_calve')
-# def table_calve():
-#     cursor = get_db().cursor()
-#     sql = 'SELECT * FROM Calve'
-#     cursor.execute(sql)
-#     results = cursor.fetchall()
-#     return render_template('calve_table.html', results=results)
-
 #add to calve(calve)
 @app.route('/add_calve', methods=['GET','POST'])
 def add_calve():
@@ -422,6 +396,42 @@ def delete_calve():
         get_db().commit()
     return redirect("/#Tables")
 
+
+#Register
+@app.route('/add_user', methods=['POST'])
+def add_user():
+    cursor = get_db().cursor()
+    username = request.form['item_username']
+    password = request.form['item_password']
+    password_confirm = request.form['item_password_confirm']
+    if hasNumbers(username):
+        flash("Username can't have digits")
+        return redirect('/login/register')
+    else:
+        if len(str(username))>1 or len(str(password))>1 or len(str(password_confirm))>1:
+            if str(password) == str(password_confirm):
+                sql = 'SELECT Username from Users WHERE Username = ?'
+                cursor.execute(sql,(username,))
+                results = cursor.fetchall()
+                if len(results) == 0:
+                    if len(str(password)) >= 8:
+                        cursor = get_db().cursor()
+                        sql = 'INSERT INTO Users(User_ID,Username,Password) VALUES(NULL,?,?)'
+                        cursor.execute(sql,(username,password,))    
+                        get_db().commit()    
+                        return redirect('login/register')    
+                    else:
+                        flash('Your password needs to be at least 8 digits long')
+                        redirect('/login/register')
+                else:
+                    flash('This Username already exists')
+                return redirect('/login/register')
+            else:
+                flash('Your confirmation of your password was incorrect')
+            return redirect('/login/register')
+        else:
+            flash('Fill all the gaps please!')
+        return redirect('/login/register')
 
 
 
