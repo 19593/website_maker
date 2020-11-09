@@ -147,6 +147,26 @@ def go_to_table_uarm():
 def go_to_table_calve():
     return redirect('/table_calve')
 
+#to buy device
+@app.route('/BuyDevice')
+def buy_device():
+    return render_template('BuyDevice.html')
+
+#to login/register page
+@app.route('/login', methods=['GET','POST'])
+def login():
+    return render_template('login.html')
+
+#to login page
+@app.route('/login/loginn', methods=['GET','POST'])
+def loginn():
+    return render_template('loginn.html')
+
+#to register page
+@app.route('/login/register', methods=['GET','POST'])
+def register():
+    return render_template('register.html')
+    
 #redirections
 
 
@@ -228,7 +248,7 @@ def add_thigh():
             cursor.execute(sql,(new_week,))
             results = cursor.fetchall()
             if len(results) == 0:
-                if new_week > 0:
+                if int(new_week) > 0:
                     cursor = get_db().cursor()
                     sql = 'INSERT INTO Thigh(Week,Thigh) VALUES(?,?)'
                     cursor.execute(sql,(new_week,new_thigh,))
@@ -278,7 +298,7 @@ def add_biceps():
             cursor.execute(sql,(new_week,))
             results = cursor.fetchall()
             if len(results) == 0:
-                if new_week > 0:
+                if int(new_week) > 0:
                     cursor = get_db().cursor()
                     sql = 'INSERT INTO Biceps(Week,Biceps) VALUES(?,?)'
                     cursor.execute(sql,(new_week,new_biceps))
@@ -306,6 +326,8 @@ def delete_biceps():
 
 
 
+
+
 #TABLE UARM
 
 # @app.route('/table_uarm')
@@ -328,7 +350,7 @@ def add_uarm():
             cursor.execute(sql,(new_week,))
             results = cursor.fetchall()
             if len(results) == 0:
-                if new_week > 0:
+                if int(new_week) > 0:
                     cursor = get_db().cursor()
                     sql = 'INSERT INTO Uarm(Week,Uarm) VALUES(?,?)'
                     cursor.execute(sql,(new_week,new_uarm,))
@@ -375,7 +397,7 @@ def add_calve():
             cursor.execute(sql,(new_week,))
             results = cursor.fetchall()
             if len(results) == 0:
-                if new_week > 0:
+                if int(new_week) > 0:
                     cursor = get_db().cursor()
                     sql = 'INSERT INTO Calve(Week,Calve) VALUES(?,?)'
                     cursor.execute(sql,(new_week,new_calve,))
@@ -401,9 +423,7 @@ def delete_calve():
     return redirect("/#Tables")
 
 
-@app.route('/BuyDevice')
-def BuyDevice():
-    return render_template('BuyDevice.html')
+
 
 if __name__== '__main__':
     app.run(debug=True)
