@@ -44,7 +44,22 @@
     <!-- /sidebar -->
 
     <div class="container">
-        <div class="login_page">
-            
+        <div class="register_page">
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <ul class=flashes>
+                        {% for message in messages %}
+                            <li>{{ message }}<a onclick="window.location.reload()"> Try again</a></li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            {% endwith %}
+            {% block body %}{% endblock %}
+            <p>Login here:</p>
+            <form action="/loginn" method="post">
+                <pre><input type="text" name='item_username' placeholder="Username (Heinz Franz)"></pre>
+                <pre><input type="text" name='item_password' placeholder="Password (8 digit code{1234Abcd})"></pre> 
+                <pre><p><input type="submit" value="Login"></p></pre>
+            </form>
         </div>
     </div>

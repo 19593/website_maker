@@ -413,6 +413,7 @@ def add_user():
                 sql = 'SELECT Username from Users WHERE Username = ?'
                 cursor.execute(sql,(username,))
                 results = cursor.fetchall()
+                print(results)
                 if len(results) == 0:
                     if len(str(password)) >= 8:
                         cursor = get_db().cursor()
@@ -432,6 +433,31 @@ def add_user():
         else:
             flash('Fill all the gaps please!')
         return redirect('/login/register')
+
+
+
+@app.route('/loginn', methods=['POST'])
+def logging_in():
+    cursor = get_db().cursor()
+    username = request.form['item_username']
+    password = request.form['item_password']
+    if hasNumbers(username):
+        flash("Username can't have digits")
+        return redirect('/login/loginn')
+    else:
+        sql = 'SELECT Username, Password FROM Users WHERE Username = ? AND Password = ?'
+        cursor.execute(sql,(username,password,))
+        results = cursor.fetchall()
+        print(results)
+        if len(results) == 0:
+            flash('Your Username or Password is incorrect')
+            return redirect('/login/loginn')
+        else:
+            
+            return redirect('/login/loginn')
+    
+
+
 
 
 
