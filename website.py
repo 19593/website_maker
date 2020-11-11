@@ -417,10 +417,10 @@ def add_user():
                 if len(results) == 0:
                     if len(str(password)) >= 8:
                         cursor = get_db().cursor()
-                        sql = 'INSERT INTO Users(User_ID,Username,Password) VALUES(NULL,?,?)'
+                        sql = 'INSERT INTO Users(UserID,Username,Password) VALUES(NULL,?,?)'
                         cursor.execute(sql,(username,password,))    
                         get_db().commit()    
-                        return redirect('login/register')    
+                        return redirect('login/loginn')    
                     else:
                         flash('Your password needs to be at least 8 digits long')
                         redirect('/login/register')
@@ -431,7 +431,7 @@ def add_user():
                 flash('Your confirmation of your password was incorrect')
             return redirect('/login/register')
         else:
-            flash('Fill all the gaps please!')
+            flash('Fill in all the gaps please!')
         return redirect('/login/register')
 
 
@@ -442,19 +442,29 @@ def logging_in():
     username = request.form['item_username']
     password = request.form['item_password']
     if hasNumbers(username):
-        flash("Username can't have digits")
+        flash("Username can't have numbers")
         return redirect('/login/loginn')
     else:
         sql = 'SELECT Username, Password FROM Users WHERE Username = ? AND Password = ?'
-        cursor.execute(sql,(username,password,))
+        cursor.execute(sql,(username,password,))        
         results = cursor.fetchall()
-        print(results)
+        get_db().commit()  
         if len(results) == 0:
             flash('Your Username or Password is incorrect')
             return redirect('/login/loginn')
         else:
-            
-            return redirect('/login/loginn')
+            cursor = get_db().cursor()
+            sql = 'SELECT UserID FROM Users WHERE Username = ?'
+            cursor.execute(sql,(username,))
+            results = cursor.fetchall()
+            results = [item for t in results for item in t]
+            results = str(results)[1:-1] 
+            get_db().commit()  
+            cursor = get_db().cursor()
+            sql = 'INSERT INTO ActiveUser(LoggedIn, UserID, Username) VALUES(NULL,?,?)'
+            cursor.execute(sql,(results, str(username),))
+            get_db().commit()            
+            return redirect('/')
     
 
 

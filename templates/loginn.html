@@ -59,7 +59,10 @@
             <form action="/loginn" method="post">
                 <pre><input type="text" name='item_username' placeholder="Username (Heinz Franz)"></pre>
                 <pre><input type="text" name='item_password' placeholder="Password (8 digit code{1234Abcd})"></pre> 
-                <pre><p><input type="submit" value="Login"></p></pre>
+                <pre><p><input type="submit" value="Login" onclick="UserIdentifier()"></p></pre>
+                <pre><p> </p></pre>
+                <pre><p>Or register <a href="/login/register">here</a> if you don't have an account yet</p></pre>
+                <div id="user_identifier"></div>
             </form>
         </div>
     </div>
