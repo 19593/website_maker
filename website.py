@@ -56,7 +56,6 @@ def graph_biceps():
     sql = 'SELECT Week, Biceps FROM Biceps'
     cursor.execute(sql)
     results = cursor.fetchall()
-    print(results)
     return render_template("/biceps_chart.html", data = [['Date', 'Circumference']] + results )
 
 @app.route('/graph_thigh')
@@ -73,7 +72,6 @@ def graph_uarm():
     sql = 'SELECT Week, Uarm FROM Uarm'
     cursor.execute(sql)
     results = cursor.fetchall()
-    print(results)
     return render_template("/uarm_chart.html", data = [['Date', 'Circumference']] + results )
 
 @app.route('/graph_calve')
@@ -82,7 +80,6 @@ def graph_calve():
     sql = 'SELECT Week, Calve FROM Calve'
     cursor.execute(sql)
     results = cursor.fetchall()
-    print(results)
     return render_template("/calve_chart.html", data = [['Date', 'Circumference']] + results )
 
 
@@ -414,7 +411,6 @@ def add_user():
                 sql = 'SELECT Username from Users WHERE Username = ?'
                 cursor.execute(sql,(username,))
                 results = cursor.fetchall()
-                print(results)
                 if len(results) == 0:
                     if len(str(password)) >= 8:
                         cursor = get_db().cursor()
@@ -449,7 +445,6 @@ def logging_in():
         sql = 'SELECT UserID, Username, Password FROM Users WHERE Username = ?'
         cursor.execute(sql,(username,))        
         results = cursor.fetchall()
-        print(results)
         if len(results) == 0:
             flash('Your Username is incorrect')
             return redirect('/login/loginn')
