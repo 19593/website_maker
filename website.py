@@ -1,4 +1,5 @@
 from flask import Flask,g,render_template,request,redirect, flash
+from werkzeug.security import generate_password_hash, check_password_hash
 import datetime
 import sqlite3
 
@@ -182,33 +183,33 @@ def register():
 #homepage
 @app.route('/', methods=['GET','POST'])
 def home():                                              #                   |
-    cursor = get_db().cursor()                           #Big SQL Statement \ /<        Union Thigh                             Union Calce                             Union Uarm
-    sql = 'SELECT Week, AVG(Biceps) AS avg_Biceps FROM (SELECT Week, Biceps FROM Biceps UNION ALL SELECT Week, Thigh FROM Thigh UNION ALL SELECT Week, Calve FROM Calve UNION ALL SELECT Week, Uarm FROM Uarm)t GROUP BY Week HAVING COUNT(*) = 4 ORDER BY Week' 
+    cursor = get_db().cursor()                           #Big SQL Statement \ /<                                                                                                                Union Thigh                                                                                                                                     Union Calve                                                                                                                                     Union Uarm                                                                                                                                     Group by
+    sql = 'SELECT Week, AVG(Biceps) AS avg_Biceps FROM (SELECT Week, Biceps FROM Biceps  WHERE UserID = (SELECT UserID FROM ActiveUser WHERE LoggedIn = (SELECT MAX(LoggedIn) FROM ActiveUser)) UNION ALL SELECT Week, Thigh FROM Thigh  WHERE UserID = (SELECT UserID FROM ActiveUser WHERE LoggedIn = (SELECT MAX(LoggedIn) FROM ActiveUser)) UNION ALL SELECT Week, Calve FROM Calve  WHERE UserID = (SELECT UserID FROM ActiveUser WHERE LoggedIn = (SELECT MAX(LoggedIn) FROM ActiveUser)) UNION ALL SELECT Week, Uarm FROM Uarm WHERE UserID = (SELECT UserID FROM ActiveUser WHERE LoggedIn = (SELECT MAX(LoggedIn) FROM ActiveUser)))t GROUP BY Week HAVING COUNT(*) = 4 ORDER BY Week' 
     cursor.execute(sql)
     results = cursor.fetchall()
-    sql1 = 'SELECT Week, Biceps FROM Biceps' 
+    sql1 = 'SELECT Week, Biceps FROM Biceps WHERE UserID = (SELECT UserID FROM ActiveUser WHERE LoggedIn = (SELECT MAX(LoggedIn) FROM ActiveUser)) ORDER BY Week' 
     cursor.execute(sql1)
     results1 = cursor.fetchall()
-    sql2 = 'SELECT Week, Thigh FROM Thigh' 
+    sql2 = 'SELECT Week, Thigh FROM Thigh WHERE UserID = (SELECT UserID FROM ActiveUser WHERE LoggedIn = (SELECT MAX(LoggedIn) FROM ActiveUser)) ORDER BY Week' 
     cursor.execute(sql2)
     results2 = cursor.fetchall()
-    sql3 = 'SELECT Week, Uarm FROM Uarm' 
+    sql3 = 'SELECT Week, Uarm FROM Uarm WHERE UserID = (SELECT UserID FROM ActiveUser WHERE LoggedIn = (SELECT MAX(LoggedIn) FROM ActiveUser)) ORDER BY Week' 
     cursor.execute(sql3) 
     results3 = cursor.fetchall()
-    sql4 = 'SELECT Week, Calve FROM Calve' 
+    sql4 = 'SELECT Week, Calve FROM Calve WHERE UserID = (SELECT UserID FROM ActiveUser WHERE LoggedIn = (SELECT MAX(LoggedIn) FROM ActiveUser)) ORDER BY Week' 
     cursor.execute(sql4)
     results4 = cursor.fetchall()
     cursor = get_db().cursor()
-    sqltablebiceps = 'SELECT * FROM Biceps'
+    sqltablebiceps = 'SELECT * FROM Biceps WHERE UserID = (SELECT UserID FROM ActiveUser WHERE LoggedIn = (SELECT MAX(LoggedIn) FROM ActiveUser)) ORDER BY Week'
     cursor.execute(sqltablebiceps)
     resultstablebiceps = cursor.fetchall()
-    sqltablethigh = 'SELECT * FROM Thigh'
+    sqltablethigh = 'SELECT * FROM Thigh WHERE UserID = (SELECT UserID FROM ActiveUser WHERE LoggedIn = (SELECT MAX(LoggedIn) FROM ActiveUser)) ORDER BY Week'
     cursor.execute(sqltablethigh)
     resultstablethigh = cursor.fetchall()
-    sqltableuarm = 'SELECT * FROM Uarm'
+    sqltableuarm = 'SELECT * FROM Uarm WHERE UserID = (SELECT UserID FROM ActiveUser WHERE LoggedIn = (SELECT MAX(LoggedIn) FROM ActiveUser)) ORDER BY Week'
     cursor.execute(sqltableuarm)
     resultstableuarm = cursor.fetchall()
-    sqltablecalve = 'SELECT * FROM Calve'
+    sqltablecalve = 'SELECT * FROM Calve WHERE UserID = (SELECT UserID FROM ActiveUser WHERE LoggedIn = (SELECT MAX(LoggedIn) FROM ActiveUser)) ORDER BY Week'
     cursor.execute(sqltablecalve)
     resultstablecalve = cursor.fetchall()
     return render_template('homepage.html', resultstablebiceps=resultstablebiceps, resultstablethigh=resultstablethigh, resultstableuarm=resultstableuarm, resultstablecalve=resultstablecalve, data = [['Date', 'Circumference']] + results, data1 = [['Date', 'Circumference']] + results1 , data2 = [['Date', 'Circumference']] + results2 , data3 = [['Date', 'Circumference']] + results3 , data4 = [['Date', 'Circumference']] + results4 )
@@ -241,14 +242,14 @@ def add_thigh():
         cursor = get_db().cursor()
         new_thigh = request.form['item_thigh']
         new_week = request.form['item_week']
-        if new_thigh.isdigit() & new_week.isdigit():
-            sql = 'SELECT Week from Thigh WHERE Week = ?'
+        if new_thigh.replace('.','').isdigit() & new_week.isdigit():
+            sql = 'SELECT Week from Thigh WHERE Week = ? AND UserID = (SELECT UserID FROM ActiveUser WHERE LoggedIn = (SELECT MAX(LoggedIn) FROM ActiveUser))'
             cursor.execute(sql,(new_week,))
             results = cursor.fetchall()
             if len(results) == 0:
                 if int(new_week) > 0:
                     cursor = get_db().cursor()
-                    sql = 'INSERT INTO Thigh(Week,Thigh) VALUES(?,?)'
+                    sql = 'INSERT INTO Thigh(Week,Thigh,UserID) VALUES(?,?,(SELECT UserID FROM ActiveUser WHERE LoggedIn = (SELECT MAX(LoggedIn) FROM ActiveUser)))'
                     cursor.execute(sql,(new_week,new_thigh,))
                     get_db().commit()
                     return redirect('/#Tables')  
@@ -266,7 +267,7 @@ def delete_thigh():
         #get the item and delete from database
         cursor = get_db().cursor()
         id = int(request.form["item_name"])
-        sql = "DELETE FROM Thigh WHERE Week=?"
+        sql = "DELETE FROM Thigh WHERE Week=? AND UserID = (SELECT UserID FROM ActiveUser WHERE LoggedIn = (SELECT MAX(LoggedIn) FROM ActiveUser))"
         cursor.execute(sql,(id,))
         get_db().commit()
     return redirect("/#Tables")
@@ -283,22 +284,22 @@ def add_biceps():
         cursor = get_db().cursor()
         new_biceps = request.form['item_biceps']
         new_week = request.form['item_week']
-        if new_biceps.isdigit() & new_week.isdigit():
-            sql = 'SELECT Week from Biceps WHERE Week = ?'
+        if new_biceps.replace('.','').isdigit() & new_week.isdigit():
+            sql = 'SELECT Week from Biceps WHERE Week = ? AND UserID = (SELECT UserID FROM ActiveUser WHERE LoggedIn = (SELECT MAX(LoggedIn) FROM ActiveUser))'
             cursor.execute(sql,(new_week,))
             results = cursor.fetchall()
             if len(results) == 0:
                 if int(new_week) > 0:
                     cursor = get_db().cursor()
-                    sql = 'INSERT INTO Biceps(Week,Biceps) VALUES(?,?)'
-                    cursor.execute(sql,(new_week,new_biceps))
+                    sql = 'INSERT INTO Biceps(Week,Biceps,UserID) VALUES(?,?,(SELECT UserID FROM ActiveUser WHERE LoggedIn = (SELECT MAX(LoggedIn) FROM ActiveUser)))'
+                    cursor.execute(sql,(new_week,new_biceps,))
                     get_db().commit()
                 return redirect('/#Tables')  
             if len(results) == 1:
-                flash('An error has accured, try again!')
+                flash('You have already entered a measurement for this week!')
             return redirect('/#Tables') 
         else:
-            flash('An error has accured, try again!')
+            flash('Please only type in numbers!')
         return redirect('/#Tables') 
 
 #delete from table biceps
@@ -308,7 +309,7 @@ def delete_biceps():
         #get the item and delete from database
         cursor = get_db().cursor()
         id = int(request.form["item_name"])
-        sql = "DELETE FROM Biceps WHERE Week=?"
+        sql = "DELETE FROM Biceps WHERE Week=? AND UserID = (SELECT UserID FROM ActiveUser WHERE LoggedIn = (SELECT MAX(LoggedIn) FROM ActiveUser))"
         cursor.execute(sql,(id,))
         get_db().commit()
     return redirect('/#Tables')
@@ -327,14 +328,14 @@ def add_uarm():
         cursor = get_db().cursor()
         new_uarm = request.form['item_uarm']
         new_week = request.form['item_week']
-        if new_uarm.isdigit() & new_week.isdigit():
-            sql = 'SELECT Week from Uarm WHERE Week = ?'
+        if new_uarm.replace('.','').isdigit() & new_week.isdigit():
+            sql = 'SELECT Week from Uarm WHERE Week = ? AND UserID = (SELECT UserID FROM ActiveUser WHERE LoggedIn = (SELECT MAX(LoggedIn) FROM ActiveUser))'
             cursor.execute(sql,(new_week,))
             results = cursor.fetchall()
             if len(results) == 0:
                 if int(new_week) > 0:
                     cursor = get_db().cursor()
-                    sql = 'INSERT INTO Uarm(Week,Uarm) VALUES(?,?)'
+                    sql = 'INSERT INTO Uarm(Week,Uarm,UserID) VALUES(?,?,(SELECT UserID FROM ActiveUser WHERE LoggedIn = (SELECT MAX(LoggedIn) FROM ActiveUser)))'
                     cursor.execute(sql,(new_week,new_uarm,))
                     get_db().commit()
                     return redirect('/#Tables')  
@@ -352,7 +353,7 @@ def delete_uarm():
         #get the item and delete from database
         cursor = get_db().cursor()
         id = int(request.form["item_name"])
-        sql = "DELETE FROM Uarm WHERE Week=?"
+        sql = "DELETE FROM Uarm WHERE Week=? AND UserID = (SELECT UserID FROM ActiveUser WHERE LoggedIn = (SELECT MAX(LoggedIn) FROM ActiveUser))"
         cursor.execute(sql,(id,))
         get_db().commit()
     return redirect("/#Tables")
@@ -366,14 +367,14 @@ def add_calve():
         cursor = get_db().cursor()
         new_calve = request.form['item_calve']
         new_week = request.form['item_week']
-        if new_calve.isdigit() & new_week.isdigit():
-            sql = 'SELECT Week from Calve WHERE Week = ?'
+        if new_calve.replace('.','').isdigit() & new_week.isdigit():
+            sql = 'SELECT Week from Calve WHERE Week = ? AND UserID = (SELECT UserID FROM ActiveUser WHERE LoggedIn = (SELECT MAX(LoggedIn) FROM ActiveUser))'
             cursor.execute(sql,(new_week,))
             results = cursor.fetchall()
             if len(results) == 0:
                 if int(new_week) > 0:
                     cursor = get_db().cursor()
-                    sql = 'INSERT INTO Calve(Week,Calve) VALUES(?,?)'
+                    sql = 'INSERT INTO Calve(Week,Calve,UserID) VALUES(?,?,(SELECT UserID FROM ActiveUser WHERE LoggedIn = (SELECT MAX(LoggedIn) FROM ActiveUser)))'
                     cursor.execute(sql,(new_week,new_calve,))
                     get_db().commit()
                     return redirect('/#Tables')  
@@ -391,7 +392,7 @@ def delete_calve():
         #get the item and delete from database
         cursor = get_db().cursor()
         id = int(request.form["item_name"])
-        sql = "DELETE FROM Calve WHERE Week=?"
+        sql = "DELETE FROM Calve WHERE Week=? AND UserID = (SELECT UserID FROM ActiveUser WHERE LoggedIn = (SELECT MAX(LoggedIn) FROM ActiveUser))"
         cursor.execute(sql,(id,))
         get_db().commit()
     return redirect("/#Tables")
@@ -418,7 +419,7 @@ def add_user():
                     if len(str(password)) >= 8:
                         cursor = get_db().cursor()
                         sql = 'INSERT INTO Users(UserID,Username,Password) VALUES(NULL,?,?)'
-                        cursor.execute(sql,(username,password,))    
+                        cursor.execute(sql,(username,generate_password_hash(password),))    
                         get_db().commit()    
                         return redirect('login/loginn')    
                     else:
@@ -445,26 +446,30 @@ def logging_in():
         flash("Username can't have numbers")
         return redirect('/login/loginn')
     else:
-        sql = 'SELECT Username, Password FROM Users WHERE Username = ? AND Password = ?'
-        cursor.execute(sql,(username,password,))        
+        sql = 'SELECT UserID, Username, Password FROM Users WHERE Username = ?'
+        cursor.execute(sql,(username,))        
         results = cursor.fetchall()
-        get_db().commit()  
+        print(results)
         if len(results) == 0:
-            flash('Your Username or Password is incorrect')
+            flash('Your Username is incorrect')
             return redirect('/login/loginn')
         else:
-            cursor = get_db().cursor()
-            sql = 'SELECT UserID FROM Users WHERE Username = ?'
-            cursor.execute(sql,(username,))
-            results = cursor.fetchall()
-            results = [item for t in results for item in t]
-            results = str(results)[1:-1] 
-            get_db().commit()  
-            cursor = get_db().cursor()
-            sql = 'INSERT INTO ActiveUser(LoggedIn, UserID, Username) VALUES(NULL,?,?)'
-            cursor.execute(sql,(results, str(username),))
-            get_db().commit()            
-            return redirect('/')
+            if check_password_hash(results[0][2],password):
+                cursor = get_db().cursor()
+                sql = 'SELECT UserID FROM Users WHERE Username = ?'
+                cursor.execute(sql,(username,))
+                results = cursor.fetchall()
+                results = [item for t in results for item in t]
+                results = str(results)[1:-1] 
+                cursor = get_db().cursor()
+                sql = 'INSERT INTO ActiveUser(LoggedIn, UserID, Username) VALUES(NULL,?,?)'
+                cursor.execute(sql,(results, str(username),))
+                get_db().commit()            
+                return redirect('/')
+            else:
+                flash('Your Password is incorrect')
+                return redirect('/login/loginn')
+                
     
 
 
